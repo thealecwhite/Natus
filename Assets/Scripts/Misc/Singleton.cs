@@ -2,8 +2,6 @@
 
 public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-	protected Singleton() {}
-
 	private static T _instance;
 	private static object _lock = new object();
 

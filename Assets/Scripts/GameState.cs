@@ -11,7 +11,6 @@ public class GameState : Singleton<GameState>
 	private PlayerMob _player;
 	private InGameMenu _inGameMenu;
 	private PauseMenu _pauseMenu;
-	private CharacterMenu _characterMenu;
 	private bool _isPaused;
 	private bool _isMenuConsumingInput;
 	private float consumeInputTime;
@@ -72,17 +71,6 @@ public class GameState : Singleton<GameState>
 		}
 	}
 
-	public static CharacterMenu characterMenu
-	{
-		get
-		{
-			if (instance._characterMenu == null)
-				instance._characterMenu = FindAnyObjectOfType<CharacterMenu>();
-
-			return instance._characterMenu;
-		}
-	}
-
 	public static bool isPaused
 	{
 		get { return instance._isPaused; }
@@ -100,7 +88,7 @@ public class GameState : Singleton<GameState>
 	{
 		get
 		{
-			return instance._isMenuConsumingInput && (Time.time - instance.consumeInputTime > Time.fixedDeltaTime);
+			return instance._isMenuConsumingInput && (Time.time - instance.consumeInputTime >= Time.fixedDeltaTime);
 		}
 
 		set
@@ -116,9 +104,6 @@ public class GameState : Singleton<GameState>
 
 		if (pauseMenu.isActiveAndEnabled)
 			pauseMenu.Close();
-
-		if (characterMenu.isActiveAndEnabled)
-			characterMenu.Close();
 	}
 
 	private void Update()

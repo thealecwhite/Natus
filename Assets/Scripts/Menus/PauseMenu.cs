@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class PauseMenu : Menu
 {
 	public Window pauseWindow;
-	public Menu mainSubmenu, optionsSubmenu, quitSubmenu;
+	public Menu mainSubmenu, quitSubmenu;
 
 	private void Start()
 	{

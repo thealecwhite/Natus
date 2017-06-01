@@ -3,14 +3,14 @@
 using UnityEngine;
 
 [System.Serializable]
-public class WolfAnimations : Animations
+public class WolfMobAnims : MobAnims
 {
 	public AnimationClip sleep;
 }
 
-public class WolfMob : AIMob<WolfAnimations>
+public class WolfMob : AIMob<WolfMobAnims>
 {
-	public BoxCollider2D damageTrigger;
+	public BoxCollider2D pounceDamager;
 
 	private Task followTask;
 	private Task returnHomeTask;
@@ -73,7 +73,7 @@ public class WolfMob : AIMob<WolfAnimations>
 
 	private IEnumerator Attack()
 	{
-		if (ignoreMoveInput || damageTrigger.enabled || !GameState.player)
+		if (ignoreMoveInput || pounceDamager.enabled || !GameState.player)
 			yield break;
 
 		float direction = Mathf.Sign((GameState.player.transform.position - transform.position).x);
@@ -91,13 +91,13 @@ public class WolfMob : AIMob<WolfAnimations>
 
 		if (isOnGround)
 		{
-			damageTrigger.enabled = true;
+			pounceDamager.enabled = true;
 			velocity = new Vector2(direction * 8f, 3f);
 		}
 
 		yield return new WaitForSeconds(0.5f);
 
-		damageTrigger.enabled = false;
+		pounceDamager.enabled = false;
 		ignoreMoveInput = false;
 	}
 

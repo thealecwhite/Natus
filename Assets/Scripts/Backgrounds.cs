@@ -2,20 +2,32 @@
 
 public class Backgrounds : MonoBehaviour
 {
-	public Transform sky;
-	public Transform leftParallax, rightParallax;
-
-	private SpriteRenderer leftParallaxRenderer, rightParallaxRenderer;
+	public Sprite skySprite, parallaxSprite;
+	private Transform sky, leftParallax, rightParallax;
+	private SpriteRenderer skyRenderer, leftParallaxRenderer, rightParallaxRenderer;
 	private int rightParallaxSide, leftParallaxSide;
 	private Vector3 lastPosition;
 
 	private void Start()
 	{
+		sky = new GameObject("Sky Background", typeof(SpriteRenderer)).transform;
+		leftParallax = new GameObject("Left Parallax", typeof(SpriteRenderer)).transform;
+		rightParallax = new GameObject("Right Parallax", typeof(SpriteRenderer)).transform;
+		sky.gameObject.hideFlags = leftParallax.gameObject.hideFlags = rightParallax.gameObject.hideFlags = HideFlags.HideInHierarchy;
+
+		skyRenderer = sky.GetComponent<SpriteRenderer>();
+		leftParallaxRenderer = leftParallax.GetComponent<SpriteRenderer>();
+		rightParallaxRenderer = rightParallax.GetComponent<SpriteRenderer>();
+
+		skyRenderer.sprite = skySprite;
+		leftParallaxRenderer.sprite = rightParallaxRenderer.sprite = parallaxSprite;
+
+		skyRenderer.sortingOrder = -10;
+		leftParallaxRenderer.sortingOrder = rightParallaxRenderer.sortingOrder = -5;
+		skyRenderer.sortingLayerName = leftParallaxRenderer.sortingLayerName = rightParallaxRenderer.sortingLayerName = "Background";
+
 		leftParallax.position = new Vector2(transform.position.x, leftParallax.position.y);
 		rightParallax.position = new Vector2(transform.position.x, rightParallax.position.y);
-
-		leftParallaxRenderer = leftParallax.GetComponent<SpriteRenderer>();
-		rightParallaxRenderer = leftParallax.GetComponent<SpriteRenderer>();
 
 		lastPosition = sky.transform.position;
 	}

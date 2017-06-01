@@ -6,12 +6,12 @@ using UnityEngine;
 using PowerTools;
 
 [Serializable]
-public class Animations
+public class MobAnims
 {
 	public AnimationClip idle, move, jump, fall, hurt;
 }
 
-public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : Animations
+public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
 {
 	public CharacterController2D controller { get; private set; }
 	public SpriteAnim animator { get; private set; }

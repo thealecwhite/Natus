@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 
 using UnityEngine;
 
 using PowerTools;
 
-[Serializable]
-public class PlayerAnimations : Animations
+[System.Serializable]
+public class PlayerMobAnims : MobAnims
 {
 	public AnimationClip skid, land, swingAttack, stabAttack, plungeAttack, deflect, drawBow, releaseBow, usePotion;
 }
 
-public class PlayerMob : Mob<PlayerAnimations>
+public class PlayerMob : Mob<PlayerMobAnims>
 {
 	public SpriteAnimNodes nodes { get; private set; }
 	public Interactor interactor { get; private set; }
@@ -22,7 +21,7 @@ public class PlayerMob : Mob<PlayerAnimations>
 	public delegate void OnDamaged(float damage, GameObject instigator, GameObject causer);
 	public event OnDamaged onDamaged;
 
-	[NonSerialized]
+	[System.NonSerialized]
 	public Item itemInUse;
 	private WeaponItem mainWeaponObject, offWeaponObject;
 

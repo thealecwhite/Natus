@@ -300,10 +300,8 @@ namespace ActionInput
 		}
 	}
 
-	public class ActionInput : Singleton<ActionInput>
+	public abstract class ActionInput : Singleton<ActionInput>
 	{
-		protected ActionInput() : base() {}
-
 		private float lastMouseX, lastMouseY, lastLeftTrigger, lastRightTrigger, lastDpadY, lastDpadX, lastLeftStickY, lastLeftStickX, lastRightStickY, lastRightStickX;
 
 		private void LateUpdate()

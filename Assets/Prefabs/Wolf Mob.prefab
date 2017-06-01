@@ -188,7 +188,7 @@ MonoBehaviour:
     sleep: {fileID: 7400000, guid: 5cfce758e68cb0c49a8662b1cc98a42a, type: 2}
   maxHP: 100
   viewDistance: 5
-  damageTrigger: {fileID: 61401709355005264}
+  pounceDamager: {fileID: 61401709355005264}
 --- !u!114 &114786704330410790
 MonoBehaviour:
   m_ObjectHideFlags: 1

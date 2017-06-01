@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-public class AIMob<TAnim> : Mob<TAnim> where TAnim : Animations
+public class AIMob<TAnim> : Mob<TAnim> where TAnim : MobAnims
 {
 	public float viewDistance = 5f;
 
