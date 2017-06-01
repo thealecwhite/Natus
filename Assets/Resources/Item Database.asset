@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a44a78499855a24f95162b2614d3bca, type: 3}
+  m_Name: Item Database
+  m_EditorClassIdentifier: 
+  sword: {fileID: 114521028963721168, guid: 9a2e1c2050f7dcd4c90e5dc11e866f62, type: 2}
+  halberd: {fileID: 114521028963721168, guid: bb2109ea77834074a8c201aa552a5fc3, type: 2}
+  shield: {fileID: 114918289384544054, guid: fd0ec6df5bb3b8f4fb07e725a83108da, type: 2}
+  bow: {fileID: 114918289384544054, guid: 907315743fdbc9248b5843e901b27ed2, type: 2}
+  potion: {fileID: 114264601585935450, guid: c03a6bf6600141f4a9cf7a4fff7583b4, type: 2}

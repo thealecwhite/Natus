@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 8c65a69ebc85e9b43bb9165631744d51
+timeCreated: 1489484156
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 9
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Double Pixel'd
+  fontNames:
+  - Double Pixel'd
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
