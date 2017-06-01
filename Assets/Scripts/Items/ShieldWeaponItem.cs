@@ -6,7 +6,7 @@ public class ShieldWeaponItem : WeaponItem
 	{
 		base.OnUse(mob);
 
-		mob.animator.Play(mob.animations.deflect);
+		mob.animator.Play(mob.anims.deflect);
 		mob.ignoreMoveInput = true;
 	}
 }

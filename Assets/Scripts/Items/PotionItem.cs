@@ -7,7 +7,7 @@ public class PotionItem : Item
 		base.OnUse(mob);
 
 		mob.ignoreMoveInput = true;
-		mob.animator.Play(mob.animations.usePotion);
+		mob.animator.Play(mob.anims.usePotion);
 	}
 
 	public override void OnAnimEvent(PlayerMob mob, int i)

@@ -20,7 +20,7 @@ public class WolfMob : AIMob<WolfMobAnims>
 	{
 		if (!isAwake)
 		{
-			animator.Play(animations.sleep);
+			animator.Play(anims.sleep);
 			return;
 		}
 

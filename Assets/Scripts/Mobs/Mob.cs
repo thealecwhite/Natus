@@ -17,14 +17,14 @@ public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
 	public SpriteAnim animator { get; private set; }
 	public new SpriteRenderer renderer { get; private set; }
 
+	public TAnim anims;
 	public float moveSpeed = 3f;
 	public float jumpForce = 5f;
 	public float gravityScale = 1f;
 	public float groundAccelerationTime = 0.025f, airAccelerationTime = 0.5f;
-	public TAnim animations;
 	public float maxHP = 100f;
 	public float currentHP { get; protected set; }
-	public bool isOnGround { get { return (controller.collision & CollisionFlags2D.Below) != 0; } }
+	public bool isOnGround { get { return controller.isOnGround; } }
 	public bool isDead { get { return currentHP <= 0 || maxHP <= 0; } }
 	public bool isDamageable { get { return !isDead; } }
 
@@ -91,10 +91,10 @@ public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
 
 		if (isOnGround)
 		{
-			if (moveInput != 0f && !ignoreMoveInput) animator.Play(animations.move, Mathf.Clamp(Mathf.Abs(velocity.x) / moveSpeed, 0.1f, 3f));
-			else animator.Play(animations.idle);
+			if (moveInput != 0f && !ignoreMoveInput) animator.Play(anims.move, Mathf.Clamp(Mathf.Abs(velocity.x) / moveSpeed, 0.1f, 3f));
+			else animator.Play(anims.idle);
 		}
-		else animator.Play(velocity.y < 0f ? animations.fall : animations.jump);
+		else animator.Play(velocity.y < 0f ? anims.fall : anims.jump);
 	}
 
 	protected virtual void OnLand()
@@ -113,7 +113,7 @@ public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
 			yield break;
 
 		ignoreMoveInput = true;
-		animator.Play(animations.hurt);
+		animator.Play(anims.hurt);
 		velocity = new Vector2((instigator.transform.position - transform.position).normalized.x * -4f, 2f);
 
 		currentHP = Mathf.Clamp(currentHP - damage, 0, maxHP);

@@ -352,14 +352,21 @@ AnimationClip:
   m_GenerateMotionCurves: 0
   m_Events:
   - time: 0.25
-    functionName: AnimAddForceHorizontal
+    functionName: AnimEnableDamage
     data: 
     objectReferenceParameter: {fileID: 0}
-    floatParameter: 4
+    floatParameter: 0
     intParameter: 0
     messageOptions: 1
   - time: 0.25
-    functionName: AnimEnableDamage
+    functionName: AnimAddForceHorizontal
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 3
+    intParameter: 0
+    messageOptions: 1
+  - time: 0.5
+    functionName: AnimEnableMovement
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -367,13 +374,6 @@ AnimationClip:
     messageOptions: 1
   - time: 0.5
     functionName: AnimDisableDamage
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 1
-  - time: 0.5
-    functionName: AnimEnableMovement
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

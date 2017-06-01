@@ -10,6 +10,7 @@ public class CharacterController2D : MonoBehaviour
 
 	public new BoxCollider2D collider { get; private set; }
 	public CollisionFlags2D collision { get; private set; }
+	public bool isOnGround { get { return (collision & CollisionFlags2D.Below) != 0; } }
 
 	[Range(2, 10)]
 	public int horizontalRayCount = 3, verticalRayCount = 2;

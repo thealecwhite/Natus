@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 31aedc7f2ea771f499e6665e5a57b5d2
-timeCreated: 1494132693
+timeCreated: 1496345534
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -76,6 +76,14 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -106,19 +114,6 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Items_Bow_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 40
-        width: 10
-        height: 10
-      alignment: 9
-      pivot: {x: 0.6, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
       name: Items_Shield
       rect:
         serializedVersion: 2
@@ -128,32 +123,6 @@ TextureImporter:
         height: 10
       alignment: 9
       pivot: {x: 0.4, y: 0.4}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Items_Bow_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 30
-        width: 10
-        height: 10
-      alignment: 9
-      pivot: {x: 0.6, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Items_Arrow
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 10
-        height: 10
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

@@ -7,7 +7,7 @@ using PowerTools;
 [System.Serializable]
 public class PlayerMobAnims : MobAnims
 {
-	public AnimationClip skid, land, swingAttack, stabAttack, plungeAttack, deflect, drawBow, releaseBow, usePotion;
+	public AnimationClip skid, land, swingDown, swingUp, stabAttack, plungeAttack, deflect, usePotion;
 }
 
 public class PlayerMob : Mob<PlayerMobAnims>
@@ -18,11 +18,10 @@ public class PlayerMob : Mob<PlayerMobAnims>
 	public float maxAP = 100f;
 	public float currentAP { get; protected set; }
 	public bool isAPRecharging { get; private set; }
+	public Item itemInUse { get; set; }
 	public delegate void OnDamaged(float damage, GameObject instigator, GameObject causer);
 	public event OnDamaged onDamaged;
 
-	[System.NonSerialized]
-	public Item itemInUse;
 	private WeaponItem mainWeaponObject, offWeaponObject;
 
 	protected override void Start()
@@ -64,7 +63,7 @@ public class PlayerMob : Mob<PlayerMobAnims>
 				velocity.y *= 0f;
 				velocity.y += 2.5f;
 
-				animator.Play(animations.plungeAttack, ((MeleeWeaponItem)mainWeaponObject).speed);
+				animator.Play(anims.plungeAttack, ((MeleeWeaponItem)mainWeaponObject).speed);
 			}
 		}
 
@@ -137,12 +136,12 @@ public class PlayerMob : Mob<PlayerMobAnims>
 		{
 			if (moveInput != 0f && !ignoreMoveInput)
 			{
-				if (velocity.x != 0 && moveInput != Mathf.Sign(velocity.x)) animator.Play(animations.skid);
-				else animator.Play(animations.move, Mathf.Clamp(Mathf.Abs(velocity.x) / moveSpeed, 0.3f, 5f));
+				if (velocity.x != 0 && moveInput != Mathf.Sign(velocity.x)) animator.Play(anims.skid);
+				else animator.Play(anims.move, Mathf.Clamp(Mathf.Abs(velocity.x) / moveSpeed, 0.3f, 5f));
 			}
-			else animator.Play(animations.idle);
+			else animator.Play(anims.idle);
 		}
-		else animator.Play(velocity.y < 0f ? animations.fall : animations.jump);
+		else animator.Play(velocity.y < 0f ? anims.fall : anims.jump);
 	}
 
 	public override IEnumerator OnDamage(float damage, GameObject instigator, GameObject causer)
@@ -151,11 +150,9 @@ public class PlayerMob : Mob<PlayerMobAnims>
 			yield break;
 
 		ignoreMoveInput = true;
-		animator.Play(animations.hurt);
-		velocity = new Vector2((instigator.transform.position - transform.position).normalized.x * -4f, 2f);
-
+		animator.Play(anims.hurt);
 		AnimDisableDamage();
-		AnimShowSecondaryWeapon();
+		velocity = new Vector2((instigator.transform.position - transform.position).normalized.x * -4f, 2f);
 
 		if (currentHP <= 1) currentHP = Mathf.Clamp(currentHP - damage, 0, maxHP);
 		else currentHP = Mathf.Clamp(currentHP - damage, 1, maxHP);
@@ -193,10 +190,9 @@ public class PlayerMob : Mob<PlayerMobAnims>
 	protected override void OnLand()
 	{
 		ignoreMoveInput = true;
-		animator.Play(animations.land);
+		animator.Play(anims.land);
 
 		AnimDisableDamage();
-		AnimShowSecondaryWeapon();
 	}
 
 	public void EquipItem(WeaponItem item, bool mainHand)
@@ -254,15 +250,15 @@ public class PlayerMob : Mob<PlayerMobAnims>
 		velocity.y += amount;
 	}
 
-	private void AnimPlayLandEffect(UnityEngine.Object effect)
+	private void AnimPlayLandEffect(Object effect)
 	{
-		Instantiate((GameObject)effect, nodes.GetPosition(2) + (Vector3.right * velocity.x * 0.1f) + (Vector3.right * 0.05f), Quaternion.identity).transform.localScale = transform.localScale;
-		Instantiate((GameObject)effect, nodes.GetPosition(3) + (Vector3.right * velocity.x * 0.1f) + (Vector3.right * 0.05f), Quaternion.identity).transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+		Instantiate((GameObject)effect, nodes.GetPosition(2) + (Vector3.right * velocity.x * 0.1f) + (Vector3.right * 0.05f), Quaternion.identity).transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+		Instantiate((GameObject)effect, nodes.GetPosition(3) + (Vector3.right * velocity.x * 0.1f) + (Vector3.right * 0.05f), Quaternion.identity).transform.localScale = transform.localScale;
 	}
 
-	private void AnimPlaySkidEffect(UnityEngine.Object effect)
+	private void AnimPlaySkidEffect(Object effect)
 	{
-		Instantiate((GameObject)effect, nodes.GetPosition(2) + (Vector3.right * velocity.x * 0.1f), Quaternion.identity).transform.localScale = transform.localScale;
+		Instantiate((GameObject)effect, nodes.GetPosition(2) + (Vector3.right * velocity.x * 0.1f), Quaternion.identity).transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
 	}
 
 	private void AnimEnableDamage()
@@ -275,24 +271,6 @@ public class PlayerMob : Mob<PlayerMobAnims>
 	{
 		if (mainWeaponObject)
 			mainWeaponObject.GetComponent<BoxCollider2D>().enabled = false;
-	}
-
-	private void AnimSetWeaponSortingOrder(int order)
-	{
-		if (mainWeaponObject)
-			mainWeaponObject.GetComponent<SpriteRenderer>().sortingOrder = order;
-	}
-
-	private void AnimHideSecondaryWeapon()
-	{
-		if (offWeaponObject)
-			offWeaponObject.GetComponent<SpriteRenderer>().enabled = false;
-	}
-
-	private void AnimShowSecondaryWeapon()
-	{
-		if (offWeaponObject)
-			offWeaponObject.GetComponent<SpriteRenderer>().enabled = true;
 	}
 
 #endregion

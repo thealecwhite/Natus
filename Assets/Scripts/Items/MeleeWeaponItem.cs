@@ -8,7 +8,7 @@ public class MeleeWeaponItem : WeaponItem
 	{
 		base.OnUse(mob);
 
-		mob.animator.Play(mob.moveInput != 0f ? mob.animations.stabAttack : mob.animations.swingAttack, speed);
+		mob.animator.Play(Random.Range(0, 2) == 0 ? mob.anims.swingDown : mob.anims.swingUp, speed);
 		mob.ignoreMoveInput = true;
 	}
 

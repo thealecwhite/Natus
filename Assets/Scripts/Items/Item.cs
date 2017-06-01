@@ -15,15 +15,6 @@ public class Item : MonoBehaviour
 		mob.itemInUse = this;
 	}
 
-	/// <summary>
-	/// How the item should function when "Use Item" button/key is released.
-	/// </summary>
-	/// <param name="mob">Which player is using the item.</param>
-	public virtual void OnEndUse(PlayerMob mob)
-	{
-		
-	}
-
 	public virtual bool CanUse(PlayerMob mob)
 	{
 		return !mob.ignoreMoveInput && mob.isOnGround;

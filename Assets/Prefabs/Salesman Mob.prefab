@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 4097969164413418}
   - component: {fileID: 58443894212200240}
   m_Layer: 14
-  m_Name: Interactee
+  m_Name: Interaction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -143,17 +143,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15239f77c6a90ab488f9e6dc18506997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
-  jumpForce: 5
-  gravityScale: 1
-  groundAccelerationTime: 0.025
-  airAccelerationTime: 0.5
-  animations:
+  anims:
     idle: {fileID: 7400000, guid: 76895adc6ddac9b49b8f5af857960a21, type: 2}
     move: {fileID: 0}
     jump: {fileID: 0}
     fall: {fileID: 0}
     hurt: {fileID: 7400000, guid: 0ce5aa9bb93b5f742bf9c2d55728b3d4, type: 2}
+  moveSpeed: 2
+  jumpForce: 5
+  gravityScale: 1
+  groundAccelerationTime: 0.025
+  airAccelerationTime: 0.5
   maxHP: 100
   viewDistance: 5
 --- !u!114 &114637675459168772

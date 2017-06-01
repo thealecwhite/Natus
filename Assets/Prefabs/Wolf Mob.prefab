@@ -174,18 +174,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9c5f6c8b45f7ad4b94627a380e68c71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anims:
+    idle: {fileID: 7400000, guid: 0af56deffcb638d469a7694c60d86362, type: 2}
+    move: {fileID: 7400000, guid: f065ecd43c5cd904d955f5a01ff73e94, type: 2}
+    jump: {fileID: 7400000, guid: f065ecd43c5cd904d955f5a01ff73e94, type: 2}
+    fall: {fileID: 7400000, guid: b732625750c79934cb98630ac0295afb, type: 2}
+    hurt: {fileID: 7400000, guid: 237e7b699d318014f923581d057e8386, type: 2}
+    sleep: {fileID: 7400000, guid: 5cfce758e68cb0c49a8662b1cc98a42a, type: 2}
   moveSpeed: 5
   jumpForce: 5
   gravityScale: 1
   groundAccelerationTime: 0.2
   airAccelerationTime: 0.5
-  animations:
-    idle: {fileID: 7400000, guid: 0af56deffcb638d469a7694c60d86362, type: 2}
-    move: {fileID: 7400000, guid: f065ecd43c5cd904d955f5a01ff73e94, type: 2}
-    jump: {fileID: 7400000, guid: a8828373a91718541a8104eb0caf03bc, type: 2}
-    fall: {fileID: 7400000, guid: b732625750c79934cb98630ac0295afb, type: 2}
-    hurt: {fileID: 7400000, guid: 237e7b699d318014f923581d057e8386, type: 2}
-    sleep: {fileID: 7400000, guid: 5cfce758e68cb0c49a8662b1cc98a42a, type: 2}
   maxHP: 100
   viewDistance: 5
   pounceDamager: {fileID: 61401709355005264}
