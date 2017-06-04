@@ -1,9 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 
 using UnityEngine;
 
-public class AIMob<TAnim> : Mob<TAnim> where TAnim : MobAnims
+using MonsterLove.StateMachine;
+
+public enum MobStates
 {
+
+}
+
+public class AIMob<TAnim, TState> : Mob<TAnim> where TAnim : MobAnims where TState : struct, IConvertible, IComparable
+{
+	public StateMachine<TState> stateMachine { get; private set; }
+
 	public float viewDistance = 5f;
 
 	protected Vector2 homePosition;

@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-public class SalesmanMob : AIMob<MobAnims>, IInteractable
+public class SalesmanMob : AIMob<MobAnims, MobStates>, IInteractable
 {
 	public string interactInfo { get { return "Talk"; } }
 

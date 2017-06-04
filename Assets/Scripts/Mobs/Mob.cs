@@ -150,7 +150,7 @@ public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
 		renderer.color = Color.white;
 	}
 
-	#region Animation
+	// Animation functions
 
 	private void AnimDestroySelf()
 	{
@@ -176,6 +176,4 @@ public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
 	{
 		velocity.y += amount;
 	}
-
-	#endregion
 }

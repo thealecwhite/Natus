@@ -8,7 +8,7 @@ public class WolfMobAnims : MobAnims
 	public AnimationClip sleep;
 }
 
-public class WolfMob : AIMob<WolfMobAnims>
+public class WolfMob : AIMob<WolfMobAnims, MobStates>
 {
 	public BoxCollider2D pounceDamager;
 
