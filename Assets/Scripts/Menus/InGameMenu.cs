@@ -90,16 +90,9 @@ public class InGameMenu : Menu
 
 	public void SetItemGet(params Item[] items)
 	{
-		// Destroy the previous item get prefabs.
-		{
-			LayoutElement[] layoutElements = itemGetWindow.GetComponentsInChildren<LayoutElement>(true);
+		ClearItemGet();
 
-			for (int i = 0; i < layoutElements.Length; i++)
-				if (!layoutElements[i].ignoreLayout)
-					Destroy(layoutElements[i]);
-		}
-
-		// Used to ensure any duplicate items in the array get combined into one.
+		// Used to ensure any duplicate items in the list get combined into one.
 		List<Item> previousItems = new List<Item>();
 
 		for (int i = 0; i < items.Length; i++)
@@ -117,6 +110,18 @@ public class InGameMenu : Menu
 
 		GameState.isMenuConsumingInput = true;
 		itemGetWindow.gameObject.SetActive(true);
+	}
+
+	public void ClearItemGet()
+	{
+		// Destroy the previous item get prefabs.
+		{
+			LayoutElement[] layoutElements = itemGetWindow.GetComponentsInChildren<LayoutElement>(true);
+
+			for (int i = 0; i < layoutElements.Length; i++)
+				if (!layoutElements[i].ignoreLayout)
+					Destroy(layoutElements[i]);
+		}
 	}
 
 	private IEnumerator DoDialogue(string dialogue, string name)

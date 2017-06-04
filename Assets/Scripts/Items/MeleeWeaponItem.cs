@@ -6,9 +6,11 @@ public class MeleeWeaponItem : WeaponItem
 
 	public override void OnUse(PlayerMob mob)
 	{
-		base.OnUse(mob);
+		int temp = Random.Range(0, 2);
 
-		mob.animator.Play(Random.Range(0, 2) == 0 ? mob.anims.swingDown : mob.anims.swingUp, speed);
+		print(temp);
+
+		mob.animator.Play(temp == 0 ? mob.anims.swingDown : mob.anims.swingUp, speed);
 		mob.ignoreMoveInput = true;
 	}
 

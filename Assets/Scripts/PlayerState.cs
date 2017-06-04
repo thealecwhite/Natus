@@ -2,7 +2,6 @@
 
 public class PlayerState : Singleton<PlayerState>
 {
-	protected PlayerState() : base() {}
-
-	public ItemStock itemStock = new ItemStock(999);
+	public ItemStock inventoryStock = new ItemStock(false), storageStock = new ItemStock(true);
+	public Item shortcutItem1, shortcutItem2, shortcutItem3, shortcutItem4;
 }

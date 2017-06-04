@@ -45,7 +45,7 @@ public class AIMob<TAnim> : Mob<TAnim> where TAnim : MobAnims
 
 	protected RaycastHit2D CheckForPlayerHit()
 	{
-		if (!GameState.player)
+		if (!GameState.player || GameState.player.isDead)
 			return default(RaycastHit2D);
 
 		RaycastHit2D hit = Physics2D.Raycast(transform.position, (GameState.player.transform.position - transform.position).normalized, viewDistance, LayerMask.GetMask("Default", "Player"));

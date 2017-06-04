@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 83bcb6fffe8789e44ac658cb2a1ba5ff
-timeCreated: 1496352304
+timeCreated: 1496534453
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -29,14 +29,16 @@ TextureImporter:
     21300044: Player_Bounce
     21300046: Player_Idle_TwoHand_0
     21300048: Player_Idle_TwoHand_1
-    21300050: Player_PlungeAttack_0
-    21300052: Player_PlungeAttack_1
+    21300050: Player_Plunge_0
+    21300052: Player_Plunge_1
     21300054: Player_SwingDown_2
     21300056: Player_Defend
     21300058: Player_SwingDown_1
     21300060: Player_SwingUp_0
     21300062: Player_SwingUp_1
     21300064: Player_SwingUp_2
+    21300066: Player_Death_0
+    21300068: Player_Death_1
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -244,19 +246,6 @@ TextureImporter:
       name: Player_SwingDown_2
       rect:
         serializedVersion: 2
-        x: 10
-        y: 30
-        width: 10
-        height: 10
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Player_StabAttack_0
-      rect:
-        serializedVersion: 2
         x: 20
         y: 30
         width: 10
@@ -267,46 +256,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Player_StabAttack_1
-      rect:
-        serializedVersion: 2
-        x: 30
-        y: 30
-        width: 10
-        height: 10
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Player_Deflect_0
-      rect:
-        serializedVersion: 2
-        x: 40
-        y: 30
-        width: 10
-        height: 10
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Player_Deflect_1
-      rect:
-        serializedVersion: 2
-        x: 50
-        y: 30
-        width: 10
-        height: 10
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Player_PlungeAttack_0
+      name: Player_Plunge_0
       rect:
         serializedVersion: 2
         x: 0
@@ -319,7 +269,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Player_PlungeAttack_1
+      name: Player_Plunge_1
       rect:
         serializedVersion: 2
         x: 10
@@ -335,8 +285,8 @@ TextureImporter:
       name: Player_SwingDown_1
       rect:
         serializedVersion: 2
-        x: 30
-        y: 20
+        x: 10
+        y: 30
         width: 10
         height: 10
       alignment: 0
@@ -348,12 +298,12 @@ TextureImporter:
       name: Player_SwingUp_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 10
+        x: 30
+        y: 30
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -361,8 +311,34 @@ TextureImporter:
       name: Player_SwingUp_1
       rect:
         serializedVersion: 2
-        x: 10
-        y: 10
+        x: 40
+        y: 30
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player_SwingUp_2
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 30
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player_Death_0
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 50
         width: 10
         height: 10
       alignment: 0
@@ -371,11 +347,11 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Player_SwingUp_2
+      name: Player_Death_1
       rect:
         serializedVersion: 2
-        x: 20
-        y: 10
+        x: 40
+        y: 50
         width: 10
         height: 10
       alignment: 0

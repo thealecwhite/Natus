@@ -1,7 +1,28 @@
-﻿using UnityEngine;
+﻿using System;
 
-public class Backgrounds : MonoBehaviour
+using UnityEngine;
+
+using UnityToolbag;
+
+public class LoopingParallaxLayers : MonoBehaviour
 {
+	[Serializable]
+	public struct ParallaxLayer
+	{
+		public Sprite sprite;
+		[SortingLayer]
+		public int sortingLayer;
+		public int orderInLayer;
+		[Range(0f, 5f)]
+		public float speed;
+
+		[NonSerialized]
+		public Transform transform;
+	}
+
+	[SortableArray]
+	public ParallaxLayer[] parallaxLayers;
+
 	public Sprite skySprite, parallaxSprite;
 	private Transform sky, leftParallax, rightParallax;
 	private SpriteRenderer skyRenderer, leftParallaxRenderer, rightParallaxRenderer;
@@ -10,26 +31,46 @@ public class Backgrounds : MonoBehaviour
 
 	private void Start()
 	{
+		for (int i = 0; i < parallaxLayers.Length; i++)
+		{
+			parallaxLayers[i].transform = new GameObject(string.Format("Parallax Layer ({0})", i), typeof(SpriteRenderer)).transform;
+			parallaxLayers[i].transform.position = (Vector2)transform.position;
+
+			{
+				SpriteRenderer renderer = parallaxLayers[i].transform.GetComponent<SpriteRenderer>();
+				renderer.sprite = parallaxLayers[i].sprite;
+				renderer.sortingLayerID = parallaxLayers[i].sortingLayer;
+				renderer.sortingOrder = parallaxLayers[i].orderInLayer;
+			}
+		}
+
 		sky = new GameObject("Sky Background", typeof(SpriteRenderer)).transform;
 		leftParallax = new GameObject("Left Parallax", typeof(SpriteRenderer)).transform;
 		rightParallax = new GameObject("Right Parallax", typeof(SpriteRenderer)).transform;
+
+		{
+			skyRenderer = sky.GetComponent<SpriteRenderer>();
+			skyRenderer.sprite = skySprite;
+			skyRenderer.sortingOrder = -10;
+		}
+
+		{
+			leftParallaxRenderer = leftParallax.GetComponent<SpriteRenderer>();
+			leftParallaxRenderer.sprite = parallaxSprite;
+			leftParallaxRenderer.sortingOrder = -5;
+		}
+
+		{
+			rightParallaxRenderer = rightParallax.GetComponent<SpriteRenderer>();
+			rightParallaxRenderer.sprite = parallaxSprite;
+			rightParallaxRenderer.sortingOrder = -5;
+		}
+
+		skyRenderer.sortingLayerName = leftParallaxRenderer.sortingLayerName = rightParallaxRenderer.sortingLayerName = "Background";
 		sky.gameObject.hideFlags = leftParallax.gameObject.hideFlags = rightParallax.gameObject.hideFlags = HideFlags.HideInHierarchy;
 
-		skyRenderer = sky.GetComponent<SpriteRenderer>();
-		leftParallaxRenderer = leftParallax.GetComponent<SpriteRenderer>();
-		rightParallaxRenderer = rightParallax.GetComponent<SpriteRenderer>();
-
-		skyRenderer.sprite = skySprite;
-		leftParallaxRenderer.sprite = rightParallaxRenderer.sprite = parallaxSprite;
-
-		skyRenderer.sortingOrder = -10;
-		leftParallaxRenderer.sortingOrder = rightParallaxRenderer.sortingOrder = -5;
-		skyRenderer.sortingLayerName = leftParallaxRenderer.sortingLayerName = rightParallaxRenderer.sortingLayerName = "Background";
-
-		leftParallax.position = new Vector2(transform.position.x, leftParallax.position.y);
-		rightParallax.position = new Vector2(transform.position.x, rightParallax.position.y);
-
-		lastPosition = sky.transform.position;
+		leftParallax.position = new Vector2(transform.position.x, 0f);
+		rightParallax.position = new Vector2(transform.position.x, 0f);
 	}
 
 	private void LateUpdate()

@@ -2,8 +2,11 @@
 
 using UnityEngine;
 
+using UnityToolbag;
+
 public class Loot : MonoBehaviour, IInteractable
 {
+	[SortableArray]
 	public List<Item> items;
 	public string interactInfo { get { return "Loot"; } }
 
@@ -14,12 +17,10 @@ public class Loot : MonoBehaviour, IInteractable
 
 	public void OnInteract(PlayerMob mob)
 	{
-		PlayerState.instance.itemStock.AddItem(items.ToArray());
+		PlayerState.instance.inventoryStock.AddItem(items.ToArray());
 		GameState.inGameMenu.SetItemGet(items.ToArray());
 
-		// TESTING (REMOVE LATER)
-		mob.EquipItem(GameState.items.sword, true);
-		mob.EquipItem(GameState.items.shield, false);
+		GameState.player.EquipItem(items[0]);
 
 		Destroy(gameObject);
 	}

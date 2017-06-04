@@ -58,7 +58,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1971217594577168}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 41, y: -8.5, z: 0}
+  m_LocalPosition: {x: 98.5, y: -9.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4562694238015948}
@@ -230,13 +230,12 @@ MonoBehaviour:
     jump: {fileID: 7400000, guid: 33e21ad7694a22a4cb49880148b581d1, type: 2}
     fall: {fileID: 7400000, guid: 5994e6a766c4ee543978631cceab2c43, type: 2}
     hurt: {fileID: 7400000, guid: 2bae57b204af603499c56a038d085fe8, type: 2}
+    dead: {fileID: 7400000, guid: 2c404676bb5b3244392ca4088a6c9454, type: 2}
     skid: {fileID: 7400000, guid: 76953bd1229d58e4eb70753d24bac3a3, type: 2}
     land: {fileID: 7400000, guid: 6746033fb2eea3744bd2773bdc02c9b2, type: 2}
     swingDown: {fileID: 7400000, guid: fe65e3e1870faa144bf1c05efcf3cb64, type: 2}
     swingUp: {fileID: 7400000, guid: 19a0f8ea198d8c743b596f6b214d1a67, type: 2}
-    stabAttack: {fileID: 7400000, guid: d9879ea62a5cf9b41b9689766d6e3644, type: 2}
-    plungeAttack: {fileID: 7400000, guid: 1e289e96b8f17784ab523ee9d1a1b767, type: 2}
-    deflect: {fileID: 7400000, guid: f11a1707eb537094190d6e6069608941, type: 2}
+    plunge: {fileID: 7400000, guid: 1e289e96b8f17784ab523ee9d1a1b767, type: 2}
     usePotion: {fileID: 7400000, guid: 9f0e38f32b000c54d8323f80d5468246, type: 2}
   moveSpeed: 3
   jumpForce: 5

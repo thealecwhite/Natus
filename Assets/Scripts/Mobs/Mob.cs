@@ -8,7 +8,7 @@ using PowerTools;
 [Serializable]
 public class MobAnims
 {
-	public AnimationClip idle, move, jump, fall, hurt;
+	public AnimationClip idle, move, jump, fall, hurt, dead;
 }
 
 public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
@@ -27,6 +27,8 @@ public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
 	public bool isOnGround { get { return controller.isOnGround; } }
 	public bool isDead { get { return currentHP <= 0 || maxHP <= 0; } }
 	public bool isDamageable { get { return !isDead; } }
+	public delegate void OnDamaged(float damage, GameObject instigator, GameObject causer);
+	public event OnDamaged onDamaged;
 
 	[NonSerialized]
 	public Vector2 velocity;
@@ -113,10 +115,10 @@ public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
 			yield break;
 
 		ignoreMoveInput = true;
-		animator.Play(anims.hurt);
-		velocity = new Vector2((instigator.transform.position - transform.position).normalized.x * -4f, 2f);
-
 		currentHP = Mathf.Clamp(currentHP - damage, 0, maxHP);
+
+		if (onDamaged != null)
+			onDamaged(damage, instigator, causer);
 
 		if (isDead)
 		{
@@ -124,40 +126,56 @@ public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
 			yield break;
 		}
 
+		animator.Play(anims.hurt);
+
 		renderer.color = Color.red;
 
-		yield return new WaitForSeconds(0.2f);
+		yield return new WaitForSeconds(0.1f);
 
 		renderer.color = Color.white;
 
 		ignoreMoveInput = false;
-
-		yield return null;
 	}
 
 	protected virtual IEnumerator OnDeath()
 	{
 		ignoreMoveInput = true;
 
-		SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+		animator.Play(anims.dead);
 
-		int i = 0;
+		renderer.color = Color.red;
 
-		while (i < 3)
-		{
-			spriteRenderer.color = Color.red;
+		yield return new WaitForSeconds(0.1f);
 
-			yield return new WaitForSeconds(0.1f);
-
-			spriteRenderer.color = Color.white;
-
-			yield return new WaitForSeconds(0.1f);
-
-			i++;
-		}
-
-		Destroy(gameObject);
-
-		yield return null;
+		renderer.color = Color.white;
 	}
+
+	#region Animation
+
+	private void AnimDestroySelf()
+	{
+		Destroy(gameObject);
+	}
+
+	private void AnimEnableMovement()
+	{
+		ignoreMoveInput = false;
+	}
+
+	private void AnimDisableMovement()
+	{
+		ignoreMoveInput = true;
+	}
+
+	private void AnimAddForceHorizontal(float amount)
+	{
+		velocity.x += amount * transform.localScale.x;
+	}
+
+	private void AnimAddForceVertical(float amount)
+	{
+		velocity.y += amount;
+	}
+
+	#endregion
 }

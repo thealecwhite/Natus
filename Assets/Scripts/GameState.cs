@@ -5,8 +5,6 @@ using ActionInput;
 
 public class GameState : Singleton<GameState>
 {
-	protected GameState() : base() {}
-
 	private ItemDatabase _items;
 	private PlayerMob _player;
 	private InGameMenu _inGameMenu;
@@ -25,7 +23,10 @@ public class GameState : Singleton<GameState>
 	public static ActionMap offUseAction = new ActionMap(KeyCode.K, Button.FaceTop);
 	public static ActionMap mainAbilityModeAction = new ActionMap(KeyCode.LeftShift, Button.LeftShoulder);
 	public static ActionMap offAbilityModeAction = new ActionMap(KeyCode.LeftAlt, Button.RightShoulder);
-	public static ActionMap shortcutUseAction = new ActionMap(KeyCode.Alpha1, Button.LeftTrigger);
+	public static ActionMap shortcut1UseAction = new ActionMap(KeyCode.Alpha1, Button.RightStickUp);
+	public static ActionMap shortcut2UseAction = new ActionMap(KeyCode.Alpha2, Button.RightStickRight);
+	public static ActionMap shortcut3UseAction = new ActionMap(KeyCode.Alpha3, Button.RightStickDown);
+	public static ActionMap shortcut4UseAction = new ActionMap(KeyCode.Alpha4, Button.RightStickLeft);
 
 	public static ItemDatabase items
 	{

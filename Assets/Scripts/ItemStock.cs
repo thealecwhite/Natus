@@ -6,31 +6,33 @@ using UnityEngine;
 [Serializable]
 public struct ItemStock
 {
-	public ItemStock(int capacity)
+	public ItemStock(bool ignoreItemLimit)
 	{
-		items = new List<Item>(capacity);
+		items = new List<Item>();
+		this.ignoreItemLimit = ignoreItemLimit;
 	}
 
 	[SerializeField]
 	private List<Item> items;
+	private bool ignoreItemLimit;
 
 	public T GetItem<T>(T item) where T : Item
 	{
 		return (T)items.Find(_item => _item == item);
 	}
 
-	public void AddItem(params Item[] items)
+	public bool AddItem(params Item[] items)
 	{
 		for (int i = 0; i < items.Length; i++)
 		{
-			if (this.items.Count < this.items.Capacity)
+			if (!ignoreItemLimit && this.items.FindAll(_item => _item == items[i]).Count < items[i].stockLimit)
 			{
-				if (this.items.FindAll(_item => _item == items[i]).Count < 99)
-				{
-					this.items.Add(items[i]);
-				}
+				this.items.Add(items[i]);
 			}
+			else return false;
 		}
+
+		return true;
 	}
 
 	public void RemoveItem(Item item)

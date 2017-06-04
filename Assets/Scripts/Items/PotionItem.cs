@@ -13,6 +13,6 @@ public class PotionItem : Item
 	public override void OnAnimEvent(PlayerMob mob, int i)
 	{
 		mob.Heal(mob.maxHP * 0.3f);
-		PlayerState.instance.itemStock.RemoveItem(this);
+		PlayerState.instance.inventoryStock.RemoveItem(this);
 	}
 }

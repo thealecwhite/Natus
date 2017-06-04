@@ -7,7 +7,7 @@ using PowerTools;
 [System.Serializable]
 public class PlayerMobAnims : MobAnims
 {
-	public AnimationClip skid, land, swingDown, swingUp, stabAttack, plungeAttack, deflect, usePotion;
+	public AnimationClip skid, land, swingDown, swingUp, plunge, usePotion;
 }
 
 public class PlayerMob : Mob<PlayerMobAnims>
@@ -18,11 +18,10 @@ public class PlayerMob : Mob<PlayerMobAnims>
 	public float maxAP = 100f;
 	public float currentAP { get; protected set; }
 	public bool isAPRecharging { get; private set; }
-	public Item itemInUse { get; set; }
-	public delegate void OnDamaged(float damage, GameObject instigator, GameObject causer);
-	public event OnDamaged onDamaged;
 
 	private WeaponItem mainWeaponObject, offWeaponObject;
+	private Item itemInUse;
+	private bool hasSecondChance = true;
 
 	protected override void Start()
 	{
@@ -63,7 +62,7 @@ public class PlayerMob : Mob<PlayerMobAnims>
 				velocity.y *= 0f;
 				velocity.y += 2.5f;
 
-				animator.Play(anims.plungeAttack, ((MeleeWeaponItem)mainWeaponObject).speed);
+				animator.Play(anims.plunge, ((MeleeWeaponItem)mainWeaponObject).speed);
 			}
 		}
 
@@ -108,12 +107,48 @@ public class PlayerMob : Mob<PlayerMobAnims>
 			}
 		}
 
-		if (GameState.shortcutUseAction.GetDown())
+		if (GameState.shortcut1UseAction.GetDown())
 		{
-			Item temp = PlayerState.instance.itemStock.GetItem(GameState.items.potion);
+			Item shortcutItem = PlayerState.instance.inventoryStock.GetItem(PlayerState.instance.shortcutItem1);
 
-			if (temp && temp.CanUse(this))
-				temp.OnUse(this);
+			if (shortcutItem && shortcutItem.CanUse(this))
+			{
+				shortcutItem.OnUse(this);
+				itemInUse = shortcutItem;
+			}
+		}
+
+		if (GameState.shortcut2UseAction.GetDown())
+		{
+			Item shortcutItem = PlayerState.instance.inventoryStock.GetItem(PlayerState.instance.shortcutItem2);
+
+			if (shortcutItem && shortcutItem.CanUse(this))
+			{
+				shortcutItem.OnUse(this);
+				itemInUse = shortcutItem;
+			}
+		}
+
+		if (GameState.shortcut3UseAction.GetDown())
+		{
+			Item shortcutItem = PlayerState.instance.inventoryStock.GetItem(PlayerState.instance.shortcutItem3);
+
+			if (shortcutItem && shortcutItem.CanUse(this))
+			{
+				shortcutItem.OnUse(this);
+				itemInUse = shortcutItem;
+			}
+		}
+
+		if (GameState.shortcut4UseAction.GetDown())
+		{
+			Item shortcutItem = PlayerState.instance.inventoryStock.GetItem(PlayerState.instance.shortcutItem4);
+
+			if (shortcutItem && shortcutItem.CanUse(this))
+			{
+				shortcutItem.OnUse(this);
+				itemInUse = shortcutItem;
+			}
 		}
 
 		// INTERACT
@@ -144,80 +179,68 @@ public class PlayerMob : Mob<PlayerMobAnims>
 		else animator.Play(velocity.y < 0f ? anims.fall : anims.jump);
 	}
 
-	public override IEnumerator OnDamage(float damage, GameObject instigator, GameObject causer)
+	protected override IEnumerator OnDeath()
 	{
-		if (!isDamageable)
-			yield break;
-
-		ignoreMoveInput = true;
-		animator.Play(anims.hurt);
-		AnimDisableDamage();
-		velocity = new Vector2((instigator.transform.position - transform.position).normalized.x * -4f, 2f);
-
-		if (currentHP <= 1) currentHP = Mathf.Clamp(currentHP - damage, 0, maxHP);
-		else currentHP = Mathf.Clamp(currentHP - damage, 1, maxHP);
-
-		onDamaged(damage, instigator, causer);
-
-		if (isDead)
+		if (hasSecondChance)
 		{
-			StartCoroutine(OnDeath());
+			Heal(1f);
+			hasSecondChance = false;
+			ignoreMoveInput = false;
 			yield break;
 		}
 
-		renderer.color = Color.red;
-
-		yield return new WaitForSeconds(0.2f);
-
-		renderer.color = Color.white;
-
-		ignoreMoveInput = false;
-
-		yield return null;
-	}
-
-	protected override IEnumerator OnDeath()
-	{
 		if (mainWeaponObject)
 			Destroy(mainWeaponObject.gameObject);
 
 		if (offWeaponObject)
 			Destroy(offWeaponObject.gameObject);
 
-		return base.OnDeath();
+		yield return base.OnDeath();
 	}
 
 	protected override void OnLand()
 	{
 		ignoreMoveInput = true;
 		animator.Play(anims.land);
-
 		AnimDisableDamage();
 	}
 
-	public void EquipItem(WeaponItem item, bool mainHand)
+	public void EquipItem(Item item)
 	{
-		if (PlayerState.instance.itemStock.GetItem(item))
+		if (PlayerState.instance.inventoryStock.GetItem(item))
 		{
-			if (mainHand)
+			// if (item.GetType() == typeof(WeaponItem))
 			{
-				if (mainWeaponObject)
-					Destroy(mainWeaponObject.gameObject);
+				switch (((WeaponItem)item).wieldType)
+				{
+					case WieldType.MainHand:
+						if (mainWeaponObject)
+							Destroy(mainWeaponObject.gameObject);
 
-				mainWeaponObject = Instantiate(item, transform);
-				mainWeaponObject.transform.position = nodes.GetPosition(0);
-				mainWeaponObject.transform.eulerAngles = new Vector3(0f, 0f, nodes.GetAngle(0));
-				mainWeaponObject.GetComponent<SpriteRenderer>().sortingOrder = -1;
-			}
-			else
-			{
-				if (offWeaponObject)
-					Destroy(offWeaponObject.gameObject);
+						mainWeaponObject = Instantiate((WeaponItem)item, transform);
+						mainWeaponObject.transform.position = nodes.GetPosition(0);
+						mainWeaponObject.transform.eulerAngles = new Vector3(0f, 0f, nodes.GetAngle(0));
+						mainWeaponObject.GetComponent<SpriteRenderer>().sortingOrder = -1;
+						break;
 
-				offWeaponObject = Instantiate(item, transform);
-				offWeaponObject.transform.position = nodes.GetPosition(1);
-				offWeaponObject.transform.eulerAngles = new Vector3(0f, 0f, nodes.GetAngle(1));
-				offWeaponObject.GetComponent<SpriteRenderer>().sortingOrder = 2;
+					case WieldType.OffHand:
+						if (offWeaponObject)
+							Destroy(offWeaponObject.gameObject);
+
+						offWeaponObject = Instantiate((WeaponItem)item, transform);
+						offWeaponObject.transform.position = nodes.GetPosition(1);
+						offWeaponObject.transform.eulerAngles = new Vector3(0f, 0f, nodes.GetAngle(1));
+						offWeaponObject.GetComponent<SpriteRenderer>().sortingOrder = 2;
+						break;
+
+					case WieldType.TwoHand:
+						if (mainWeaponObject)
+							Destroy(mainWeaponObject.gameObject);
+
+						if (offWeaponObject)
+							Destroy(offWeaponObject.gameObject);
+						break;
+				}
 			}
 		}
 	}
@@ -228,26 +251,6 @@ public class PlayerMob : Mob<PlayerMobAnims>
 	{
 		if (itemInUse)
 			itemInUse.OnAnimEvent(this, i);
-	}
-
-	private void AnimEnableMovement()
-	{
-		ignoreMoveInput = false;
-	}
-
-	private void AnimDisableMovement()
-	{
-		ignoreMoveInput = true;
-	}
-
-	private void AnimAddForceHorizontal(float amount)
-	{
-		velocity.x += amount * transform.localScale.x;
-	}
-
-	private void AnimAddForceVertical(float amount)
-	{
-		velocity.y += amount;
 	}
 
 	private void AnimPlayLandEffect(Object effect)
@@ -273,5 +276,5 @@ public class PlayerMob : Mob<PlayerMobAnims>
 			mainWeaponObject.GetComponent<BoxCollider2D>().enabled = false;
 	}
 
-#endregion
+	#endregion
 }

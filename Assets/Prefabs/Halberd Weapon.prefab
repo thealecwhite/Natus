@@ -101,8 +101,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Halberd
   description: 
+  stockLimit: 99
+  wieldType: 0
   damage: 35
-  speed: 0.6
+  speed: 0.8
 --- !u!212 &212071355616985760
 SpriteRenderer:
   m_ObjectHideFlags: 1
