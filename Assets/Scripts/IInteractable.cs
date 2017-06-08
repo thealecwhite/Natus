@@ -2,9 +2,9 @@
 {
 	string interactInfo { get; }
 
-	void OnInteract(PlayerMob mob);
-
 	bool CanInteract(PlayerMob mob);
+
+	void OnInteract(PlayerMob mob);
 
 	void OnInteractEnter();
 

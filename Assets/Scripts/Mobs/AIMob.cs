@@ -7,7 +7,7 @@ using MonsterLove.StateMachine;
 
 public enum MobStates
 {
-
+	Idle
 }
 
 public class AIMob<TAnim, TState> : Mob<TAnim> where TAnim : MobAnims where TState : struct, IConvertible, IComparable
@@ -21,6 +21,8 @@ public class AIMob<TAnim, TState> : Mob<TAnim> where TAnim : MobAnims where TSta
 	protected override void Start()
 	{
 		base.Start();
+
+		stateMachine = StateMachine<TState>.Initialize(this);
 
 		homePosition = transform.position;
 

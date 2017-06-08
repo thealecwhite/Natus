@@ -85,7 +85,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 1420804836003016}
   m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 1
+  m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -180,6 +180,7 @@ MonoBehaviour:
     jump: {fileID: 7400000, guid: f065ecd43c5cd904d955f5a01ff73e94, type: 2}
     fall: {fileID: 7400000, guid: b732625750c79934cb98630ac0295afb, type: 2}
     hurt: {fileID: 7400000, guid: 237e7b699d318014f923581d057e8386, type: 2}
+    dead: {fileID: 7400000, guid: 7688dc2bf6e2e8949b08912eb0d8c3f0, type: 2}
     sleep: {fileID: 7400000, guid: 5cfce758e68cb0c49a8662b1cc98a42a, type: 2}
   moveSpeed: 5
   jumpForce: 5

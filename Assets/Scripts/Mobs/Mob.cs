@@ -46,7 +46,7 @@ public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
 		renderer = GetComponent<SpriteRenderer>();
 
 		currentHP = maxHP;
-    }
+	}
 
 	protected virtual void Update()
 	{
@@ -88,12 +88,12 @@ public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
 
 	protected virtual void GetSetAnimation()
 	{
-		if (isDead)
+		if (isDead || ignoreMoveInput)
 			return;
 
 		if (isOnGround)
 		{
-			if (moveInput != 0f && !ignoreMoveInput) animator.Play(anims.move, Mathf.Clamp(Mathf.Abs(velocity.x) / moveSpeed, 0.1f, 3f));
+			if (moveInput != 0f) animator.Play(anims.move, Mathf.Clamp(Mathf.Abs(velocity.x) / moveSpeed, 0.3f, 5f));
 			else animator.Play(anims.idle);
 		}
 		else animator.Play(velocity.y < 0f ? anims.fall : anims.jump);
@@ -150,7 +150,7 @@ public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
 		renderer.color = Color.white;
 	}
 
-	// Animation functions
+	#region Animation
 
 	private void AnimDestroySelf()
 	{
@@ -176,4 +176,6 @@ public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
 	{
 		velocity.y += amount;
 	}
+
+	#endregion
 }

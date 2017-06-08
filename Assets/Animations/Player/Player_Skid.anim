@@ -164,11 +164,13 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 21300010, guid: 83bcb6fffe8789e44ac658cb2a1ba5ff, type: 3}
+    - time: 0.20833333
+      value: {fileID: 21300010, guid: 83bcb6fffe8789e44ac658cb2a1ba5ff, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 4
+  m_SampleRate: 24
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -246,6 +248,7 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
+    - {fileID: 21300010, guid: 83bcb6fffe8789e44ac658cb2a1ba5ff, type: 3}
     - {fileID: 21300010, guid: 83bcb6fffe8789e44ac658cb2a1ba5ff, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
@@ -417,7 +420,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 0
   m_Events:
-  - time: 0
+  - time: 0.041666668
     functionName: AnimPlaySkidEffect
     data: 
     objectReferenceParameter: {fileID: 1823569256760584, guid: 202073d0cd69bfa4d90a1cdade8ff9b2,

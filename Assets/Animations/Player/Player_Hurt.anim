@@ -262,6 +262,13 @@ AnimationClip:
   m_GenerateMotionCurves: 0
   m_Events:
   - time: 0
+    functionName: AnimAddForceVertical
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 2
+    intParameter: 0
+    messageOptions: 1
+  - time: 0
     functionName: AnimAddForceHorizontal
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -269,9 +276,9 @@ AnimationClip:
     intParameter: 0
     messageOptions: 1
   - time: 0
-    functionName: AnimAddForceVertical
+    functionName: AnimDisableMeleeDamage
     data: 
     objectReferenceParameter: {fileID: 0}
-    floatParameter: 2
+    floatParameter: 0
     intParameter: 0
     messageOptions: 1

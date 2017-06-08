@@ -193,6 +193,11 @@ Prefab:
       propertyPath: m_Name
       value: Wolf Mob (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 50481842106316298, guid: 865bdd8f4262b204084ce4dc7d873014,
+        type: 2}
+      propertyPath: m_UseFullKinematicContacts
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 865bdd8f4262b204084ce4dc7d873014, type: 2}
   m_IsPrefabParent: 0
@@ -401,6 +406,11 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 20939589493354002, guid: ce5db93670cb2a64895301643dcae2c7,
+        type: 2}
+      propertyPath: orthographic size
+      value: 4.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ce5db93670cb2a64895301643dcae2c7, type: 2}
   m_IsPrefabParent: 0
@@ -535,6 +545,11 @@ Prefab:
     - target: {fileID: 1420804836003016, guid: 865bdd8f4262b204084ce4dc7d873014, type: 2}
       propertyPath: m_Name
       value: Wolf Mob (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 50481842106316298, guid: 865bdd8f4262b204084ce4dc7d873014,
+        type: 2}
+      propertyPath: m_UseFullKinematicContacts
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 865bdd8f4262b204084ce4dc7d873014, type: 2}
@@ -714,14 +729,6 @@ Prefab:
     - target: {fileID: 1420804836003016, guid: 865bdd8f4262b204084ce4dc7d873014, type: 2}
       propertyPath: m_Name
       value: Wolf Mob (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1420804836003016, guid: 865bdd8f4262b204084ce4dc7d873014, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1420804836003016, guid: 865bdd8f4262b204084ce4dc7d873014, type: 2}
-      propertyPath: m_Layer
-      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 865bdd8f4262b204084ce4dc7d873014, type: 2}

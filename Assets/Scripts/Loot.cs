@@ -21,6 +21,7 @@ public class Loot : MonoBehaviour, IInteractable
 		GameState.inGameMenu.SetItemGet(items.ToArray());
 
 		GameState.player.EquipItem(items[0]);
+		GameState.player.EquipItem(GameState.items.shield);
 
 		Destroy(gameObject);
 	}

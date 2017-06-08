@@ -16,6 +16,7 @@ public class PlayerMob : Mob<PlayerMobAnims>
 	public Interactor interactor { get; private set; }
 
 	public float maxAP = 100f;
+	public Collider2DCallback meleeDamage;
 	public float currentAP { get; protected set; }
 	public bool isAPRecharging { get; private set; }
 
@@ -29,6 +30,8 @@ public class PlayerMob : Mob<PlayerMobAnims>
 
 		nodes = GetComponent<SpriteAnimNodes>();
 		interactor = GetComponentInChildren<Interactor>();
+
+		meleeDamage.trigger2D.enabled = false;
 	}
 
 	protected override void Update()
@@ -169,7 +172,7 @@ public class PlayerMob : Mob<PlayerMobAnims>
 
 		if (isOnGround)
 		{
-			if (moveInput != 0f && !ignoreMoveInput)
+			if (moveInput != 0f)
 			{
 				if (velocity.x != 0 && moveInput != Mathf.Sign(velocity.x)) animator.Play(anims.skid);
 				else animator.Play(anims.move, Mathf.Clamp(Mathf.Abs(velocity.x) / moveSpeed, 0.3f, 5f));
@@ -202,47 +205,52 @@ public class PlayerMob : Mob<PlayerMobAnims>
 	{
 		ignoreMoveInput = true;
 		animator.Play(anims.land);
-		AnimDisableDamage();
+		AnimDisableMeleeDamage();
 	}
 
 	public void EquipItem(Item item)
 	{
 		if (PlayerState.instance.inventoryStock.GetItem(item))
 		{
-			// if (item.GetType() == typeof(WeaponItem))
+			switch (((WeaponItem)item).wieldType)
 			{
-				switch (((WeaponItem)item).wieldType)
-				{
-					case WieldType.MainHand:
-						if (mainWeaponObject)
-							Destroy(mainWeaponObject.gameObject);
+				case WieldType.MainHand:
+					if (mainWeaponObject)
+						Destroy(mainWeaponObject.gameObject);
 
-						mainWeaponObject = Instantiate((WeaponItem)item, transform);
-						mainWeaponObject.transform.position = nodes.GetPosition(0);
-						mainWeaponObject.transform.eulerAngles = new Vector3(0f, 0f, nodes.GetAngle(0));
-						mainWeaponObject.GetComponent<SpriteRenderer>().sortingOrder = -1;
-						break;
+					mainWeaponObject = Instantiate((WeaponItem)item, transform);
+					mainWeaponObject.transform.position = nodes.GetPosition(0);
+					mainWeaponObject.transform.eulerAngles = new Vector3(0f, 0f, nodes.GetAngle(0));
+					mainWeaponObject.GetComponent<SpriteRenderer>().sortingOrder = -1;
+					break;
 
-					case WieldType.OffHand:
-						if (offWeaponObject)
-							Destroy(offWeaponObject.gameObject);
+				case WieldType.OffHand:
+					if (offWeaponObject)
+						Destroy(offWeaponObject.gameObject);
 
-						offWeaponObject = Instantiate((WeaponItem)item, transform);
-						offWeaponObject.transform.position = nodes.GetPosition(1);
-						offWeaponObject.transform.eulerAngles = new Vector3(0f, 0f, nodes.GetAngle(1));
-						offWeaponObject.GetComponent<SpriteRenderer>().sortingOrder = 2;
-						break;
+					offWeaponObject = Instantiate((WeaponItem)item, transform);
+					offWeaponObject.transform.position = nodes.GetPosition(1);
+					offWeaponObject.transform.eulerAngles = new Vector3(0f, 0f, nodes.GetAngle(1));
+					offWeaponObject.GetComponent<SpriteRenderer>().sortingOrder = 2;
+					break;
 
-					case WieldType.TwoHand:
-						if (mainWeaponObject)
-							Destroy(mainWeaponObject.gameObject);
+				case WieldType.TwoHand:
+					if (mainWeaponObject)
+						Destroy(mainWeaponObject.gameObject);
 
-						if (offWeaponObject)
-							Destroy(offWeaponObject.gameObject);
-						break;
-				}
+					if (offWeaponObject)
+						Destroy(offWeaponObject.gameObject);
+					break;
 			}
 		}
+	}
+
+	public void PrepareMeleeDamage(MeleeWeaponItem item)
+	{
+		((BoxCollider2D)meleeDamage.trigger2D).size = new Vector2(item.range, 1f);
+		((BoxCollider2D)meleeDamage.trigger2D).offset = new Vector2(item.range / 2f, -0.1f);
+		meleeDamage.trigger2D.enabled = false;
+		meleeDamage.onTriggerEnter2D += item.DoMeleeDamage;
 	}
 
 	#region Animation
@@ -253,10 +261,15 @@ public class PlayerMob : Mob<PlayerMobAnims>
 			itemInUse.OnAnimEvent(this, i);
 	}
 
+	private void AnimPlaySlashEffect(Object effect)
+	{
+		Instantiate((GameObject)effect, nodes.GetPosition(2), Quaternion.identity, transform);
+	}
+
 	private void AnimPlayLandEffect(Object effect)
 	{
-		Instantiate((GameObject)effect, nodes.GetPosition(2) + (Vector3.right * velocity.x * 0.1f) + (Vector3.right * 0.05f), Quaternion.identity).transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-		Instantiate((GameObject)effect, nodes.GetPosition(3) + (Vector3.right * velocity.x * 0.1f) + (Vector3.right * 0.05f), Quaternion.identity).transform.localScale = transform.localScale;
+		Instantiate((GameObject)effect, nodes.GetPosition(2) + (Vector3.right * velocity.x * 0.1f), Quaternion.identity).transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+		Instantiate((GameObject)effect, nodes.GetPosition(3) + (Vector3.right * velocity.x * 0.1f), Quaternion.identity).transform.localScale = transform.localScale;
 	}
 
 	private void AnimPlaySkidEffect(Object effect)
@@ -264,16 +277,15 @@ public class PlayerMob : Mob<PlayerMobAnims>
 		Instantiate((GameObject)effect, nodes.GetPosition(2) + (Vector3.right * velocity.x * 0.1f), Quaternion.identity).transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
 	}
 
-	private void AnimEnableDamage()
+	private void AnimEnableMeleeDamage()
 	{
-		if (mainWeaponObject)
-			mainWeaponObject.GetComponent<BoxCollider2D>().enabled = true;
+		meleeDamage.trigger2D.enabled = true;
 	}
 
-	private void AnimDisableDamage()
+	private void AnimDisableMeleeDamage()
 	{
-		if (mainWeaponObject)
-			mainWeaponObject.GetComponent<BoxCollider2D>().enabled = false;
+		meleeDamage.trigger2D.enabled = false;
+		meleeDamage.ClearOnTriggerEnter2D();
 	}
 
 	#endregion

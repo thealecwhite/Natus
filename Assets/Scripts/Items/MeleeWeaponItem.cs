@@ -2,19 +2,18 @@
 
 public class MeleeWeaponItem : WeaponItem
 {
+	public int damage;
 	public float speed = 1f;
+	public float range = 1f;
 
 	public override void OnUse(PlayerMob mob)
 	{
-		int temp = Random.Range(0, 2);
-
-		print(temp);
-
-		mob.animator.Play(temp == 0 ? mob.anims.swingDown : mob.anims.swingUp, speed);
 		mob.ignoreMoveInput = true;
+		mob.PrepareMeleeDamage(this);
+		mob.animator.Play(Random.Range(0, 2) == 0 ? mob.anims.swingDown : mob.anims.swingUp, speed);
 	}
 
-	private void OnTriggerEnter2D(Collider2D collision)
+	public void DoMeleeDamage(Collider2D collision)
 	{
 		if (collision.isTrigger)
 			return;

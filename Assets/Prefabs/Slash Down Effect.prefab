@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114245041706935360}
   - component: {fileID: 114932193538137724}
   m_Layer: 0
-  m_Name: Slash Effect
+  m_Name: Slash Down Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

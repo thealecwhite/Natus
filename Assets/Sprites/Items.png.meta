@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 31aedc7f2ea771f499e6665e5a57b5d2
-timeCreated: 1496345534
+timeCreated: 1496719746
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -117,7 +117,7 @@ TextureImporter:
       name: Items_Shield
       rect:
         serializedVersion: 2
-        x: 10
+        x: 0
         y: 40
         width: 10
         height: 10
@@ -131,19 +131,6 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 50
-        y: 0
-        width: 10
-        height: 10
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Items_Potion
-      rect:
-        serializedVersion: 2
-        x: 10
         y: 0
         width: 10
         height: 10

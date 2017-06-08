@@ -28,6 +28,11 @@ public class SalesmanMob : AIMob<MobAnims, MobStates>, IInteractable
 		return base.OnDamage(damage, instigator, causer);
 	}
 
+	public bool CanInteract(PlayerMob mob)
+	{
+		return !isDead && !mob.ignoreMoveInput && mob.isOnGround;
+	}
+
 	public void OnInteract(PlayerMob mob)
 	{
 		GameState.inGameMenu.onDialogueContinue += OnDialogueContinue;
@@ -35,14 +40,9 @@ public class SalesmanMob : AIMob<MobAnims, MobStates>, IInteractable
 		OnDialogueContinue();
 	}
 
-	public bool CanInteract(PlayerMob mob)
-	{
-		return !mob.ignoreMoveInput && mob.isOnGround;
-	}
-
 	public void OnInteractEnter()
 	{
-		
+
 	}
 
 	public void OnInteractExit()
@@ -69,7 +69,7 @@ public class SalesmanMob : AIMob<MobAnims, MobStates>, IInteractable
 				dialogue = "And now I've found you.";
 				goto dialogue;
 
-				dialogue:
+			dialogue:
 				GameState.inGameMenu.SetDialogue(dialogue, "Salesman");
 				dialogueStage++;
 				return true;
