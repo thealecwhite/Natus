@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: da11305c5455b20499bddc831b48819e
-timeCreated: 1496884660
+timeCreated: 1497077646
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -173,58 +173,6 @@ TextureImporter:
         serializedVersion: 2
         x: 24
         y: 16
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Effects_SlashDown_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Effects_SlashDown_1
-      rect:
-        serializedVersion: 2
-        x: 8
-        y: 0
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Effects_SlashUp_0
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Effects_SlashUp_1
-      rect:
-        serializedVersion: 2
-        x: 24
-        y: 0
         width: 8
         height: 8
       alignment: 0

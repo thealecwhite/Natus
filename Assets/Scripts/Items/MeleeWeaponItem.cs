@@ -3,8 +3,12 @@
 public class MeleeWeaponItem : WeaponItem
 {
 	public int damage;
+	[Range(0.5f, 2f)]
 	public float speed = 1f;
+	[Range(0f, 10f)]
 	public float range = 1f;
+	[Range(0f, 5f)]
+	public float knockback = 1f;
 
 	public override void OnUse(PlayerMob mob)
 	{
@@ -21,6 +25,6 @@ public class MeleeWeaponItem : WeaponItem
 		IDamageable damageable = collision.GetComponent<IDamageable>();
 
 		if (damageable != null)
-			((MonoBehaviour)damageable).StartCoroutine(damageable.OnDamage(damage, transform.parent.gameObject, gameObject));
+			((MonoBehaviour)damageable).StartCoroutine(damageable.OnDamage(transform.parent.gameObject, gameObject, damage, knockback));
 	}
 }

@@ -6,5 +6,5 @@ public interface IDamageable
 {
 	bool isDamageable { get; }
 
-	IEnumerator OnDamage(float damage, GameObject instigator, GameObject causer);
+	IEnumerator OnDamage(GameObject instigator, GameObject causer, float damage, float knockback);
 }

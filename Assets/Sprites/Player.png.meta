@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 83bcb6fffe8789e44ac658cb2a1ba5ff
-timeCreated: 1496884250
+timeCreated: 1497073712
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -39,6 +39,8 @@ TextureImporter:
     21300064: Player_SlashUp_1
     21300066: Player_Death_0
     21300068: Player_Death_1
+    21300070: Player_SlashDown_2
+    21300072: Player_SlashUp_2
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -285,7 +287,7 @@ TextureImporter:
       name: Player_SlashUp_0
       rect:
         serializedVersion: 2
-        x: 20
+        x: 30
         y: 30
         width: 10
         height: 10
@@ -298,7 +300,7 @@ TextureImporter:
       name: Player_SlashUp_1
       rect:
         serializedVersion: 2
-        x: 30
+        x: 40
         y: 30
         width: 10
         height: 10
@@ -330,6 +332,45 @@ TextureImporter:
         height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player_Defend
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 10
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player_SlashDown_2
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 30
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player_SlashUp_2
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 30
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

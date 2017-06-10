@@ -22,12 +22,13 @@ public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
 	public float jumpForce = 5f;
 	public float gravityScale = 1f;
 	public float groundAccelerationTime = 0.025f, airAccelerationTime = 0.5f;
+	public float knockbackScale = 1f;
 	public float maxHP = 100f;
 	public float currentHP { get; protected set; }
 	public bool isOnGround { get { return controller.isOnGround; } }
 	public bool isDead { get { return currentHP <= 0 || maxHP <= 0; } }
 	public bool isDamageable { get { return !isDead; } }
-	public delegate void OnDamaged(float damage, GameObject instigator, GameObject causer);
+	public delegate void OnDamaged(GameObject instigator, GameObject causer, float damage);
 	public event OnDamaged onDamaged;
 
 	[NonSerialized]
@@ -109,16 +110,19 @@ public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
 		currentHP = Mathf.Clamp(currentHP + amount, 0, maxHP);
 	}
 
-	public virtual IEnumerator OnDamage(float damage, GameObject instigator, GameObject causer)
+	public virtual IEnumerator OnDamage(GameObject instigator, GameObject causer, float damage, float knockback)
 	{
 		if (!isDamageable)
 			yield break;
 
+		print(name + " hit by " + instigator.name);
+
 		ignoreMoveInput = true;
 		currentHP = Mathf.Clamp(currentHP - damage, 0, maxHP);
+		velocity = new Vector2(knockback * Mathf.Sign(transform.position.x - causer.transform.position.x) * knockbackScale, knockback / 2f * knockbackScale);
 
 		if (onDamaged != null)
-			onDamaged(damage, instigator, causer);
+			onDamaged(instigator, causer, damage);
 
 		if (isDead)
 		{

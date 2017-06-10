@@ -72,20 +72,6 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 0
   m_Events:
-  - time: 0
-    functionName: AnimAddForceVertical
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 2
-    intParameter: 0
-    messageOptions: 1
-  - time: 0
-    functionName: AnimAddForceHorizontal
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: -5
-    intParameter: 0
-    messageOptions: 1
   - time: 2
     functionName: AnimDestroySelf
     data: 

@@ -21,11 +21,11 @@ public class SalesmanMob : AIMob<MobAnims, MobStates>, IInteractable
 		}
 	}
 
-	public override IEnumerator OnDamage(float damage, GameObject instigator, GameObject causer)
+	public override IEnumerator OnDamage(GameObject instigator, GameObject causer, float damage, float knockback)
 	{
 		OnInteractExit();
 
-		return base.OnDamage(damage, instigator, causer);
+		return base.OnDamage(instigator, causer, damage, knockback);
 	}
 
 	public bool CanInteract(PlayerMob mob)

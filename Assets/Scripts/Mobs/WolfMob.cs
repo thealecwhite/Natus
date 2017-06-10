@@ -109,6 +109,6 @@ public class WolfMob : AIMob<WolfMobAnims, MobStates>
 		IDamageable damageable = collision.GetComponent<IDamageable>();
 
 		if (damageable != null)
-			((MonoBehaviour)damageable).StartCoroutine(damageable.OnDamage(25, gameObject, gameObject));
+			((MonoBehaviour)damageable).StartCoroutine(damageable.OnDamage(gameObject, gameObject, 25, 3f));
 	}
 }

@@ -311,14 +311,16 @@ MonoBehaviour:
     skid: {fileID: 7400000, guid: 76953bd1229d58e4eb70753d24bac3a3, type: 2}
     land: {fileID: 7400000, guid: 6746033fb2eea3744bd2773bdc02c9b2, type: 2}
     swingDown: {fileID: 7400000, guid: e3f126ddfd5755640b15ea49f573d018, type: 2}
-    swingUp: {fileID: 7400000, guid: 19a0f8ea198d8c743b596f6b214d1a67, type: 2}
+    swingUp: {fileID: 7400000, guid: f44c2248df481b44c95d670aca433064, type: 2}
     plunge: {fileID: 7400000, guid: 1e289e96b8f17784ab523ee9d1a1b767, type: 2}
+    defend: {fileID: 7400000, guid: fd4895a5adf23974682a91ebbf176673, type: 2}
     usePotion: {fileID: 7400000, guid: 9f0e38f32b000c54d8323f80d5468246, type: 2}
   moveSpeed: 3
   jumpForce: 5
   gravityScale: 1
   groundAccelerationTime: 0.025
   airAccelerationTime: 0.5
+  knockbackScale: 1
   maxHP: 100
   maxAP: 100
   meleeDamage: {fileID: 114989518319060694}

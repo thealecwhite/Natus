@@ -7,7 +7,7 @@ using PowerTools;
 [System.Serializable]
 public class PlayerMobAnims : MobAnims
 {
-	public AnimationClip skid, land, swingDown, swingUp, plunge, usePotion;
+	public AnimationClip skid, land, swingDown, swingUp, plunge, defend, usePotion;
 }
 
 public class PlayerMob : Mob<PlayerMobAnims>
@@ -22,6 +22,8 @@ public class PlayerMob : Mob<PlayerMobAnims>
 
 	private WeaponItem mainWeaponObject, offWeaponObject;
 	private Item itemInUse;
+	[System.NonSerialized]
+	public bool hasShieldUp;
 	private bool hasSecondChance = true;
 
 	protected override void Start()
@@ -182,6 +184,19 @@ public class PlayerMob : Mob<PlayerMobAnims>
 		else animator.Play(velocity.y < 0f ? anims.fall : anims.jump);
 	}
 
+	public override IEnumerator OnDamage(GameObject instigator, GameObject causer, float damage, float knockback)
+	{
+		if (hasShieldUp)
+		{
+			float direction = Mathf.Sign(transform.position.x - causer.transform.position.x);
+
+			if (direction != transform.localScale.x)
+				yield break;
+		}
+
+		yield return base.OnDamage(instigator, causer, damage, knockback);
+	}
+
 	protected override IEnumerator OnDeath()
 	{
 		if (hasSecondChance)
@@ -204,8 +219,9 @@ public class PlayerMob : Mob<PlayerMobAnims>
 	protected override void OnLand()
 	{
 		ignoreMoveInput = true;
-		animator.Play(anims.land);
+		hasShieldUp = false;
 		AnimDisableMeleeDamage();
+		animator.Play(anims.land);
 	}
 
 	public void EquipItem(Item item)
@@ -259,11 +275,6 @@ public class PlayerMob : Mob<PlayerMobAnims>
 	{
 		if (itemInUse)
 			itemInUse.OnAnimEvent(this, i);
-	}
-
-	private void AnimPlaySlashEffect(Object effect)
-	{
-		Instantiate((GameObject)effect, nodes.GetPosition(2), Quaternion.identity, transform);
 	}
 
 	private void AnimPlayLandEffect(Object effect)

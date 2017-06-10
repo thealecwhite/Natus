@@ -120,7 +120,7 @@ public class InGameMenu : Menu
 
 			for (int i = 0; i < layoutElements.Length; i++)
 				if (!layoutElements[i].ignoreLayout)
-					Destroy(layoutElements[i]);
+					Destroy(layoutElements[i].gameObject);
 		}
 	}
 
@@ -177,7 +177,7 @@ public class InGameMenu : Menu
 		onDialogueContinue = null;
 	}
 
-	private void OnPlayerDamaged(float damage, GameObject instigator, GameObject causer)
+	private void OnPlayerDamaged(GameObject instigator, GameObject causer, float damage)
 	{
 		damageTime = Time.time;
 		HPDamageSlider.value = HPSlider.value;

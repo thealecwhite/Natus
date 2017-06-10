@@ -187,6 +187,7 @@ MonoBehaviour:
   gravityScale: 1
   groundAccelerationTime: 0.2
   airAccelerationTime: 0.5
+  knockbackScale: 1.5
   maxHP: 100
   viewDistance: 5
   pounceDamager: {fileID: 61401709355005264}

@@ -59,6 +59,7 @@ MonoBehaviour:
   damage: 35
   speed: 0.7
   range: 1.6
+  knockback: 4
 --- !u!212 &212071355616985760
 SpriteRenderer:
   m_ObjectHideFlags: 1
