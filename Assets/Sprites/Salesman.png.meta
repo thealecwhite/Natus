@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 593c35993d26dd1408b36f76a44b1bac
-timeCreated: 1490497267
+timeCreated: 1497163388
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -12,6 +12,12 @@ TextureImporter:
     21300010: Salesman_Idle_2
     21300012: Salesman_6
     21300014: Salesman_7
+    21300016: Salesman_Death_0
+    21300018: Salesman_Death_1
+    21300020: Salesman_Move_0
+    21300022: Salesman_Move_1
+    21300024: Salesman_Death_2
+    21300026: Salesman_Death_3
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -74,6 +80,14 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -82,7 +96,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 24
+        y: 48
         width: 12
         height: 12
       alignment: 0
@@ -95,7 +109,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 12
-        y: 24
+        y: 48
         width: 12
         height: 12
       alignment: 0
@@ -108,7 +122,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 12
+        y: 24
         width: 12
         height: 12
       alignment: 0
@@ -121,7 +135,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 12
-        y: 12
+        y: 24
         width: 12
         height: 12
       alignment: 0
@@ -147,7 +161,85 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 24
-        y: 24
+        y: 48
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Salesman_Death_0
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 0
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Salesman_Death_1
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Salesman_Move_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 36
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Salesman_Move_1
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 36
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Salesman_Death_2
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 0
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Salesman_Death_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
         width: 12
         height: 12
       alignment: 0
