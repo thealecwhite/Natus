@@ -8,19 +8,6 @@ public class SalesmanMob : AIMob<MobAnims, MobStates>, IInteractable
 
 	private int dialogueStage;
 
-	protected override IEnumerator AI()
-	{
-		while (true)
-		{
-			yield return new WaitForFixedUpdate();
-
-			RaycastHit2D hit = CheckForPlayerHit();
-
-			if (hit)
-				transform.localScale = new Vector3(Mathf.Sign((hit.transform.position - transform.position).x), 1f, 1f);
-		}
-	}
-
 	public override IEnumerator OnDamage(GameObject instigator, GameObject causer, float damage, float knockback)
 	{
 		OnInteractExit();

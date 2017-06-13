@@ -190,7 +190,7 @@ MonoBehaviour:
   knockbackScale: 1.5
   maxHP: 100
   viewDistance: 5
-  pounceDamager: {fileID: 61401709355005264}
+  attackTrigger: {fileID: 61401709355005264}
 --- !u!114 &114786704330410790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -259,3 +259,4 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1

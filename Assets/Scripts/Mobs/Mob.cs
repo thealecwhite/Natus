@@ -115,8 +115,6 @@ public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
 		if (!isDamageable)
 			yield break;
 
-		print(name + " hit by " + instigator.name);
-
 		ignoreMoveInput = true;
 		currentHP = Mathf.Clamp(currentHP - damage, 0, maxHP);
 		velocity = new Vector2(knockback * Mathf.Sign(transform.position.x - causer.transform.position.x) * knockbackScale, knockback / 2f * knockbackScale);
@@ -134,7 +132,7 @@ public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
 
 		renderer.color = Color.red;
 
-		yield return new WaitForSeconds(0.1f);
+		yield return new WaitForSeconds(0.2f);
 
 		renderer.color = Color.white;
 

@@ -10,11 +10,85 @@ public class WolfMobAnims : MobAnims
 
 public class WolfMob : AIMob<WolfMobAnims, MobStates>
 {
-	public BoxCollider2D pounceDamager;
+	public BoxCollider2D attackTrigger;
 
-	private Task followTask;
-	private Task returnHomeTask;
 	private bool isAwake;
+
+	protected override void Start()
+	{
+		base.Start();
+
+		stateMachine.ChangeState(MobStates.Idle);
+	}
+
+	private void Idle_FixedUpdate()
+	{
+		if (isDead)
+			return;
+
+		RaycastHit2D playerHit = CheckForPlayerHit();
+
+		if (playerHit)
+		{
+			isAwake = true;
+			target = playerHit.transform;
+			stateMachine.ChangeState(MobStates.Chase);
+		}
+		else MoveTo(home, 0.5f);
+	}
+
+	private IEnumerator Chase_Enter()
+	{
+		yield return new WaitForSeconds(0.5f);
+	}
+
+	private void Chase_FixedUpdate()
+	{
+		if (isDead)
+			return;
+
+		if (target)
+		{
+			if (MoveTo(target.position, 2f))
+				stateMachine.ChangeState(MobStates.Attack);
+		}
+		else stateMachine.ChangeState(MobStates.Idle);
+	}
+
+	private IEnumerator Attack_Enter()
+	{
+		if (isDead || !target)
+		{
+			stateMachine.ChangeState(MobStates.Chase);
+			yield break;
+		}
+
+		float direction = Mathf.Sign((GameState.player.transform.position - transform.position).x);
+
+		transform.localScale = new Vector3(direction, 1f, 1f);
+		ignoreMoveInput = true;
+
+		yield return new WaitForSeconds(0.5f);
+
+		if (isDead || !target)
+		{
+			ignoreMoveInput = false;
+			stateMachine.ChangeState(MobStates.Chase);
+			yield break;
+		}
+
+		if (isOnGround)
+		{
+			attackTrigger.enabled = true;
+			velocity = new Vector2(direction * 8f, 3f);
+
+			yield return new WaitForSeconds(1f);
+		}
+
+		attackTrigger.enabled = false;
+		ignoreMoveInput = false;
+		stateMachine.ChangeState(MobStates.Chase);
+	}
 
 	protected override void GetSetAnimation()
 	{
@@ -25,80 +99,6 @@ public class WolfMob : AIMob<WolfMobAnims, MobStates>
 		}
 
 		base.GetSetAnimation();
-	}
-
-	protected override IEnumerator AI()
-	{
-		while (true)
-		{
-			yield return new WaitForFixedUpdate();
-
-			RaycastHit2D hit = CheckForPlayerHit();
-
-			if (hit)
-			{
-				isAwake = true;
-
-				if (returnHomeTask != null && returnHomeTask.Running)
-					returnHomeTask.Stop();
-
-				if (followTask == null || !followTask.Running)
-				{
-					followTask = Task.Get(WaitToMoveTo(hit.transform, 2f, Random.Range(0.25f, 0.75f)));
-					followTask.Finished += OnFollowTaskFinished;
-				}
-			}
-			else
-			{
-				if ((homePosition - (Vector2)transform.position).magnitude > 1f)
-				{
-					if (returnHomeTask == null || !returnHomeTask.Running)
-					{
-						returnHomeTask = Task.Get(WaitToMoveTo(homePosition, 1f, Random.Range(1f, 2f)));
-					}
-				}
-			}
-		}
-	}
-
-	private void OnFollowTaskFinished(bool manual)
-	{
-		if (!this)
-			return;
-
-		followTask.Finished -= OnFollowTaskFinished;
-
-		StartCoroutine(Attack());
-	}
-
-	private IEnumerator Attack()
-	{
-		if (ignoreMoveInput || pounceDamager.enabled || !GameState.player)
-			yield break;
-
-		float direction = Mathf.Sign((GameState.player.transform.position - transform.position).x);
-
-		transform.localScale = new Vector3(direction, 1f, 1f);
-		ignoreMoveInput = true;
-
-		yield return new WaitForSeconds(0.5f);
-
-		if (!GameState.player)
-		{
-			ignoreMoveInput = false;
-			yield break;
-		}
-
-		if (isOnGround)
-		{
-			pounceDamager.enabled = true;
-			velocity = new Vector2(direction * 8f, 3f);
-		}
-
-		yield return new WaitForSeconds(0.5f);
-
-		pounceDamager.enabled = false;
-		ignoreMoveInput = false;
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)

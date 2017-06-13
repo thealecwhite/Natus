@@ -7,26 +7,26 @@ using MonsterLove.StateMachine;
 
 public enum MobStates
 {
-	Idle
+	Idle, Chase, Defend, Attack
 }
 
-public class AIMob<TAnim, TState> : Mob<TAnim> where TAnim : MobAnims where TState : struct, IConvertible, IComparable
+public class AIMob<TAnims, TStates> : Mob<TAnims> where TAnims : MobAnims where TStates : struct, IConvertible, IComparable
 {
-	public StateMachine<TState> stateMachine { get; private set; }
+	public StateMachine<TStates> stateMachine { get; private set; }
 
+	public readonly TStates states;
 	public float viewDistance = 5f;
 
-	protected Vector2 homePosition;
+	protected Transform target;
+	protected Vector2 home;
 
 	protected override void Start()
 	{
 		base.Start();
 
-		stateMachine = StateMachine<TState>.Initialize(this);
+		stateMachine = StateMachine<TStates>.Initialize(this);
 
-		homePosition = transform.position;
-
-		StartCoroutine(AI());
+		home = transform.position;
 	}
 
 	protected override void Update()
@@ -45,14 +45,9 @@ public class AIMob<TAnim, TState> : Mob<TAnim> where TAnim : MobAnims where TSta
 
 	protected override IEnumerator OnDeath()
 	{
-		StopAllCoroutines();
+		// StopAllCoroutines();
 
 		return base.OnDeath();
-	}
-
-	protected virtual IEnumerator AI()
-	{
-		yield return null;
 	}
 
 	protected RaycastHit2D CheckForPlayerHit()
@@ -62,53 +57,33 @@ public class AIMob<TAnim, TState> : Mob<TAnim> where TAnim : MobAnims where TSta
 
 		RaycastHit2D hit = Physics2D.Raycast(transform.position, (GameState.player.transform.position - transform.position).normalized, viewDistance, LayerMask.GetMask("Default", "Player"));
 
-		if (hit && !hit.transform.CompareTag("Player"))
+		if (!hit || !hit.transform.CompareTag("Player"))
 			return default(RaycastHit2D);
 
 		return hit;
 	}
 
-	protected IEnumerator WaitToMoveTo(Vector3 target, float acceptDistance, float waitTime)
+	protected bool MoveTo(Vector2 target, float distance)
 	{
-		yield return new WaitForSeconds(waitTime);
-
-		if (!this)
-			yield break;
-
-		while ((target - transform.position).magnitude > acceptDistance)
+		if ((target - (Vector2)transform.position).magnitude > distance)
 		{
-			yield return new WaitForFixedUpdate();
+			if (!ignoreMoveInput)
+				moveInput = Mathf.Sign(target.x - transform.position.x);
 
-			if (!this)
-				yield break;
-
-			moveInput = Mathf.Sign(target.x - transform.position.x);
+			return false;
 		}
+		else
+		{
+			if (!ignoreMoveInput)
+				moveInput = 0f;
 
-		moveInput = 0;
-
-		yield return null;
+			return true;
+		}
 	}
 
-	protected IEnumerator WaitToMoveTo(Transform target, float acceptDistance, float waitTime)
+	private void OnDrawGizmos()
 	{
-		yield return new WaitForSeconds(waitTime);
-
-		if (!this || !target)
-			yield break;
-
-		while ((target.position - transform.position).magnitude > acceptDistance)
-		{
-			yield return new WaitForFixedUpdate();
-
-			if (!this || !target)
-				yield break;
-
-			moveInput = Mathf.Sign(target.position.x - transform.position.x);
-		}
-
-		moveInput = 0;
-
-		yield return null;
+		Gizmos.color = Color.white * 0.5f;
+		Gizmos.DrawWireSphere(transform.position, viewDistance);
 	}
 }
