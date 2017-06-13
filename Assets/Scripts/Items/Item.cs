@@ -25,6 +25,15 @@ public class Item : MonoBehaviour
 
 	}
 
+	/// <summary>
+	/// How the item should function when "Use Item" button/key is being held.
+	/// </summary>
+	/// <param name="mob">Which player is using the item.</param>
+	public virtual void OnHoldUse(PlayerMob mob)
+	{
+
+	}
+
 	public virtual bool CanUse(PlayerMob mob)
 	{
 		return !mob.ignoreMoveInput && mob.isOnGround;

@@ -95,6 +95,10 @@ public class PlayerMob : Mob<PlayerMobAnims>
 			{
 				mainWeaponObject.OnEndUse(this);
 			}
+			else if (GameState.mainUseAction.GetHeld() && mainWeaponObject.CanUse(this))
+			{
+				mainWeaponObject.OnHoldUse(this);
+			}
 		}
 
 		if (offWeaponObject)
@@ -109,6 +113,10 @@ public class PlayerMob : Mob<PlayerMobAnims>
 			else if (GameState.offUseAction.GetUp())
 			{
 				offWeaponObject.OnEndUse(this);
+			}
+			else if (GameState.offUseAction.GetHeld())
+			{
+				offWeaponObject.OnHoldUse(this);
 			}
 		}
 
@@ -219,7 +227,6 @@ public class PlayerMob : Mob<PlayerMobAnims>
 	protected override void OnLand()
 	{
 		ignoreMoveInput = true;
-		hasShieldUp = false;
 		AnimDisableMeleeDamage();
 		animator.Play(anims.land);
 	}
