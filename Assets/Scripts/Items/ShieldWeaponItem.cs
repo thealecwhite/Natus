@@ -2,6 +2,11 @@
 
 public class ShieldWeaponItem : WeaponItem
 {
+	public override bool CanUse(PlayerMob mob)
+	{
+		return (mob.ignoreMoveInput == mob.hasShieldUp) && mob.isOnGround;
+	}
+
 	public override void OnEndUse(PlayerMob mob)
 	{
 		if (mob.hasShieldUp)
@@ -22,7 +27,6 @@ public class ShieldWeaponItem : WeaponItem
 				mob.animator.Play(mob.anims.defend);
 			}
 		}
-		else
-			OnEndUse(mob);
+		else OnEndUse(mob);
 	}
 }

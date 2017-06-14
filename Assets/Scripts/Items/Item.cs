@@ -7,6 +7,11 @@ public class Item : MonoBehaviour
 	public string description;
 	public int stockLimit = 99;
 
+	public virtual bool CanUse(PlayerMob mob)
+	{
+		return !mob.ignoreMoveInput && mob.isOnGround;
+	}
+
 	/// <summary>
 	/// How the item should function when "Use Item" button/key is pressed.
 	/// </summary>
@@ -32,11 +37,6 @@ public class Item : MonoBehaviour
 	public virtual void OnHoldUse(PlayerMob mob)
 	{
 
-	}
-
-	public virtual bool CanUse(PlayerMob mob)
-	{
-		return !mob.ignoreMoveInput && mob.isOnGround;
 	}
 
 	public virtual void OnAnimEvent(PlayerMob mob, int i)
