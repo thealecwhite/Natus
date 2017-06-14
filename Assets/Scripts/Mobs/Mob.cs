@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 
 using UnityEngine;
 
 using PowerTools;
 
-[Serializable]
+[System.Serializable]
 public class MobAnims
 {
 	public AnimationClip idle, move, jump, fall, hurt, dead;
@@ -31,11 +30,11 @@ public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
 	public delegate void OnDamaged(GameObject instigator, GameObject causer, float damage);
 	public event OnDamaged onDamaged;
 
-	[NonSerialized]
+	[System.NonSerialized]
 	public Vector2 velocity;
-	[NonSerialized]
+	[System.NonSerialized]
 	public float moveInput;
-	[NonSerialized]
+	[System.NonSerialized]
 	public bool ignoreMoveInput;
 	private float smoothVelocity;
 	private bool wasOnGround;
@@ -177,6 +176,11 @@ public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
 	private void AnimAddForceVertical(float amount)
 	{
 		velocity.y += amount;
+	}
+
+	private void AnimPlayAudioClip(Object clip)
+	{
+		AudioSource.PlayClipAtPoint((AudioClip)clip, new Vector3(transform.position.x, transform.position.y, -10f));
 	}
 
 	#endregion

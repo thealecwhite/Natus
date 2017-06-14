@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider2D))]
+[DisallowMultipleComponent]
 public class CharacterController2D : MonoBehaviour
 {
 	private struct RaycastOrigins

@@ -64,38 +64,6 @@ AnimationClip:
     path: 
     classID: 114
     script: {fileID: 11500000, guid: 8cf860f4296d4d04fb8c9e2b8c326c7c, type: 3}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_ang0
-    path: 
-    classID: 114
-    script: {fileID: 11500000, guid: 8cf860f4296d4d04fb8c9e2b8c326c7c, type: 3}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_ang1
-    path: 
-    classID: 114
-    script: {fileID: 11500000, guid: 8cf860f4296d4d04fb8c9e2b8c326c7c, type: 3}
   m_PPtrCurves:
   - curve:
     - time: 0
@@ -128,20 +96,6 @@ AnimationClip:
     - serializedVersion: 2
       path: 0
       attribute: 2184544431
-      script: {fileID: 11500000, guid: 8cf860f4296d4d04fb8c9e2b8c326c7c, type: 3}
-      typeID: 114
-      customType: 0
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 0
-      attribute: 1918721725
-      script: {fileID: 11500000, guid: 8cf860f4296d4d04fb8c9e2b8c326c7c, type: 3}
-      typeID: 114
-      customType: 0
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 0
-      attribute: 89812523
       script: {fileID: 11500000, guid: 8cf860f4296d4d04fb8c9e2b8c326c7c, type: 3}
       typeID: 114
       customType: 0
@@ -221,38 +175,6 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_node1.y
-    path: 
-    classID: 114
-    script: {fileID: 11500000, guid: 8cf860f4296d4d04fb8c9e2b8c326c7c, type: 3}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_ang0
-    path: 
-    classID: 114
-    script: {fileID: 11500000, guid: 8cf860f4296d4d04fb8c9e2b8c326c7c, type: 3}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_ang1
     path: 
     classID: 114
     script: {fileID: 11500000, guid: 8cf860f4296d4d04fb8c9e2b8c326c7c, type: 3}
