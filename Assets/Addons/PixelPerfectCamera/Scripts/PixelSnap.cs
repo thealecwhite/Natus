@@ -3,24 +3,24 @@ using UnityEngine;
 
 namespace PixelPerfect
 {
-/// <summary>
-/// The script enables retroSnap or eliminates jittering when traslating an object under a non pixel perfect resolution.
-/// <para />
-/// When the game object is rendered by a camera with a PixelPerfectCamera script, it uses retroSnap if enabled for this camera.This will
-/// make the position of the object snap to the pixel grid as defined by the asset's pixels per unit. This will make the object move to multiples 
-/// of screen pixels at once making a more "snappy" movement.
-/// <para />
-/// When the REDUCE_JITTER preprocessor symbol is enabled, reduce-jitter mode is used when retroSnap is disabled.This will work under any camera, 
-/// regardless if it has the pixel pefrect camera script attached or not. This can be helpful when translating pixelart objects in a non pixel-pefrect resolution
-/// and point-filtering is used.
-/// </summary>
-/// <remarks>
-/// The script adjusts the object's position (while rendering) to that it snaps. It then restores the original position.
-/// <para />
-/// For Sprites only: the script takes into account the pivot point and screen resolution for proper texel to screen-pixel placement.
-/// <para />
-/// It works only when playing.
-/// </remarks>
+	/// <summary>
+	/// The script enables retroSnap or eliminates jittering when traslating an object under a non pixel perfect resolution.
+	/// <para />
+	/// When the game object is rendered by a camera with a PixelPerfectCamera script, it uses retroSnap if enabled for this camera.This will
+	/// make the position of the object snap to the pixel grid as defined by the asset's pixels per unit. This will make the object move to multiples 
+	/// of screen pixels at once making a more "snappy" movement.
+	/// <para />
+	/// When the REDUCE_JITTER preprocessor symbol is enabled, reduce-jitter mode is used when retroSnap is disabled.This will work under any camera, 
+	/// regardless if it has the pixel pefrect camera script attached or not. This can be helpful when translating pixelart objects in a non pixel-pefrect resolution
+	/// and point-filtering is used.
+	/// </summary>
+	/// <remarks>
+	/// The script adjusts the object's position (while rendering) to that it snaps. It then restores the original position.
+	/// <para />
+	/// For Sprites only: the script takes into account the pivot point and screen resolution for proper texel to screen-pixel placement.
+	/// <para />
+	/// It works only when playing.
+	/// </remarks>
 	public class PixelSnap : MonoBehaviour
 	{
 		private Sprite sprite;
@@ -52,22 +52,22 @@ namespace PixelPerfect
 			PixelPerfectCamera pixelPerfectCamera = cam.GetComponent<PixelPerfectCamera>();
 			bool retroSnap = (pixelPerfectCamera == null) ? false : pixelPerfectCamera.retroSnap;
 
-	#if !REDUCE_JITTER
+#if !REDUCE_JITTER
 			if (!retroSnap)
 				return;
-	#endif
+#endif
 
 			shouldRestorePosition = true;
 			actualPosition = transform.position;
 
-			float cameraPPU = (float)cam.pixelHeight / (2f * cam.orthographicSize);
+			float cameraPPU = cam.pixelHeight / (2f * cam.orthographicSize);
 			float cameraUPP = 1.0f / cameraPPU;
 
-			Vector2 camPos = cam.transform.position.xy();
-			Vector2 pos = actualPosition.xy();
+			Vector2 camPos = cam.transform.position;
+			Vector2 pos = actualPosition;
 			Vector2 relPos = pos - camPos;
 
-			Vector2 offset = new Vector2(0, 0);
+			Vector2 offset = Vector2.zero;
 			// offset for screen pixel edge if screen size is odd
 			offset.x = (cam.pixelWidth % 2 == 0) ? 0 : 0.5f;
 			offset.y = (cam.pixelHeight % 2 == 0) ? 0 : 0.5f;
