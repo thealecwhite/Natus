@@ -10,13 +10,13 @@ public class MobAnims
 	public AnimationClip idle, move, jump, fall, hurt, dead;
 }
 
-public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
+public class Mob<TAnims> : MonoBehaviour, IDamageable where TAnims : MobAnims
 {
 	public CharacterController2D controller { get; private set; }
 	public SpriteAnim animator { get; private set; }
 	public new SpriteRenderer renderer { get; private set; }
 
-	public TAnim anims;
+	public TAnims anims;
 	public float moveSpeed = 3f;
 	public float jumpForce = 5f;
 	public float gravityScale = 1f;

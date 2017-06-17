@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 
 using UnityEngine;
 
@@ -41,13 +40,6 @@ public class AIMob<TAnims, TStates> : Mob<TAnims> where TAnims : MobAnims where 
 			if (Physics2D.Raycast(transform.position, Vector2.right * moveInput, Mathf.Abs(moveInput) * moveSpeed / 2f, controller.collisionLayerMask))
 				velocity.y = jumpForce;
 		}
-	}
-
-	protected override IEnumerator OnDeath()
-	{
-		// StopAllCoroutines();
-
-		return base.OnDeath();
 	}
 
 	protected RaycastHit2D CheckForPlayerHit()
