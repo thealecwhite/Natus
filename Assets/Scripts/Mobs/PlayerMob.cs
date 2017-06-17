@@ -95,7 +95,7 @@ public class PlayerMob : Mob<PlayerMobAnims>
 			{
 				mainWeaponObject.OnEndUse(this);
 			}
-			else if (GameState.mainUseAction.GetHeld() && mainWeaponObject.CanUse(this))
+			else if (GameState.mainUseAction.GetHeld())
 			{
 				mainWeaponObject.OnHoldUse(this);
 			}
@@ -175,7 +175,7 @@ public class PlayerMob : Mob<PlayerMobAnims>
 		}
 	}
 
-	protected override void GetSetAnimation()
+	protected override void DoAnimation()
 	{
 		if (isDead || ignoreMoveInput)
 			return;

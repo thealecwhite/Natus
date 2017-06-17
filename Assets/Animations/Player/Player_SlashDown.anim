@@ -374,7 +374,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 1
   - time: 0.33333334
-    functionName: AnimAddForceHorizontal
+    functionName: AnimAddHorizontalForce
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 3
@@ -397,7 +397,7 @@ AnimationClip:
     messageOptions: 1
   - time: 0.5833333
     functionName: _Anim
-    data: AnimEnableMovement
+    data: AnimEnableMoveInput
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

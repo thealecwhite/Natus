@@ -362,18 +362,18 @@ AnimationClip:
     intParameter: 0
     messageOptions: 1
   - time: 0.33333334
-    functionName: AnimAddForceHorizontal
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 3
-    intParameter: 0
-    messageOptions: 1
-  - time: 0.33333334
     functionName: AnimPlayAudioClip
     data: 
     objectReferenceParameter: {fileID: 8300000, guid: fe5f84f0e354c3d4c90f723ca34c1cee,
       type: 3}
     floatParameter: 0
+    intParameter: 0
+    messageOptions: 1
+  - time: 0.33333334
+    functionName: AnimAddHorizontalForce
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 3
     intParameter: 0
     messageOptions: 1
   - time: 0.41666666
@@ -385,7 +385,7 @@ AnimationClip:
     messageOptions: 1
   - time: 0.5833333
     functionName: _Anim
-    data: AnimEnableMovement
+    data: AnimEnableMoveInput
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

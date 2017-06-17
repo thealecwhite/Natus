@@ -90,7 +90,7 @@ public class WolfMob : AIMob<WolfMobAnims, MobStates>
 		stateMachine.ChangeState(MobStates.Chase);
 	}
 
-	protected override void GetSetAnimation()
+	protected override void DoAnimation()
 	{
 		if (!isAwake)
 		{
@@ -98,7 +98,7 @@ public class WolfMob : AIMob<WolfMobAnims, MobStates>
 			return;
 		}
 
-		base.GetSetAnimation();
+		base.DoAnimation();
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)

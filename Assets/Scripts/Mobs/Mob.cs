@@ -83,10 +83,10 @@ public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
 		if ((controller.collision & CollisionFlags2D.Left) != 0 || (controller.collision & CollisionFlags2D.Right) != 0)
 			velocity.x = 0f;
 
-		GetSetAnimation();
+		DoAnimation();
 	}
 
-	protected virtual void GetSetAnimation()
+	protected virtual void DoAnimation()
 	{
 		if (isDead || ignoreMoveInput)
 			return;
@@ -146,7 +146,7 @@ public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
 
 		renderer.color = Color.red;
 
-		yield return new WaitForSeconds(0.1f);
+		yield return new WaitForSeconds(0.2f);
 
 		renderer.color = Color.white;
 	}
@@ -158,22 +158,22 @@ public class Mob<TAnim> : MonoBehaviour, IDamageable where TAnim : MobAnims
 		Destroy(gameObject);
 	}
 
-	private void AnimEnableMovement()
+	private void AnimEnableMoveInput()
 	{
 		ignoreMoveInput = false;
 	}
 
-	private void AnimDisableMovement()
+	private void AnimDisableMoveInput()
 	{
 		ignoreMoveInput = true;
 	}
 
-	private void AnimAddForceHorizontal(float amount)
+	private void AnimAddHorizontalForce(float amount)
 	{
 		velocity.x += amount * transform.localScale.x;
 	}
 
-	private void AnimAddForceVertical(float amount)
+	private void AnimAddVerticalForce(float amount)
 	{
 		velocity.y += amount;
 	}
