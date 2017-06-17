@@ -1,8 +1,8 @@
-﻿Shader "Tiled2Unity/Default"
+﻿Shader "Tiled2Unity/Default (Instanced)"
 {
     Properties
     {
-        [PerRendererData] _MainTex ("Tiled Texture", 2D) = "white" {}
+        _MainTex ("Tiled Texture", 2D) = "white" {}
         _Color ("Tint", Color) = (1,1,1,1)
         [MaterialToggle] PixelSnap ("Pixel snap", Float) = 1
     }
@@ -11,9 +11,9 @@
     {
         Tags
         { 
-            "Queue"="Transparent" 
-            "IgnoreProjector"="True" 
-            "RenderType"="Transparent" 
+            "Queue"="Transparent"
+            "IgnoreProjector"="True"
+            "RenderType"="Transparent"
             "PreviewType"="Plane"
         }
 
@@ -37,6 +37,7 @@
                 float4 vertex   : POSITION;
                 float4 color    : COLOR;
                 float2 texcoord : TEXCOORD0;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
             struct v2f
@@ -47,27 +48,32 @@
             };
 
 
-            fixed4 _Color;
+            UNITY_INSTANCING_CBUFFER_START(MyProperties)
+                UNITY_DEFINE_INSTANCED_PROP(float4, _Color)
+            UNITY_INSTANCING_CBUFFER_END
 
-            v2f vert(appdata_t IN)
+            v2f vert(appdata_t In)
             {
-                v2f OUT;
-                OUT.vertex = UnityObjectToClipPos(IN.vertex);
-                OUT.texcoord = IN.texcoord;
-                OUT.color = IN.color * _Color;
+                UNITY_SETUP_INSTANCE_ID(In);
+
+                v2f Out;
+                Out.vertex = UnityObjectToClipPos(In.vertex);
+                Out.texcoord = In.texcoord;
+                Out.color = In.color * UNITY_ACCESS_INSTANCED_PROP(_Color);
+
                 #ifdef PIXELSNAP_ON
-                OUT.vertex = UnityPixelSnap (OUT.vertex);
+                Out.vertex = UnityPixelSnap (Out.vertex);
                 #endif
 
-                return OUT;
+                return Out;
             }
 
             sampler2D _MainTex;
 
-            fixed4 frag(v2f IN) : COLOR
+            fixed4 frag(v2f In) : COLOR
             {
-                half4 texcol = tex2D(_MainTex, IN.texcoord);
-                texcol = texcol * IN.color;
+                half4 texcol = tex2D(_MainTex, In.texcoord);
+                texcol = texcol * In.color;
                 return texcol;
             }
         ENDCG

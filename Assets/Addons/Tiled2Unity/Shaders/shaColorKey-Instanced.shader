@@ -1,11 +1,8 @@
-﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-// Legacy shader for older Tiled2Unity builds. Will eventually remove.
-Shader "Tiled2Unity/TextureTintSnap (Legacy)"
+﻿Shader "Tiled2Unity/Default Color Key (Instanced)"
 {
     Properties
     {
-        [PerRendererData] _MainTex ("Tiled Texture", 2D) = "white" {}
+        _MainTex ("Tiled Texture", 2D) = "white" {}
         _Color ("Tint", Color) = (1,1,1,1)
         _AlphaColorKey ("Alpha Color Key", Color) = (0,0,0,0)
         [MaterialToggle] PixelSnap ("Pixel snap", Float) = 1
@@ -15,11 +12,10 @@ Shader "Tiled2Unity/TextureTintSnap (Legacy)"
     {
         Tags
         { 
-            "Queue"="Transparent" 
-            "IgnoreProjector"="True" 
-            "RenderType"="Transparent" 
+            "Queue"="Transparent"
+            "IgnoreProjector"="True"
+            "RenderType"="Transparent"
             "PreviewType"="Plane"
-            "CanUseSpriteAtlas"="True"
         }
 
         Cull Off
@@ -35,12 +31,14 @@ Shader "Tiled2Unity/TextureTintSnap (Legacy)"
             #pragma fragment frag
             #pragma multi_compile DUMMY PIXELSNAP_ON
             #include "UnityCG.cginc"
+            #include "Tiled2Unity.cginc"
 
             struct appdata_t
             {
                 float4 vertex   : POSITION;
                 float4 color    : COLOR;
                 float2 texcoord : TEXCOORD0;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
             struct v2f
@@ -51,14 +49,17 @@ Shader "Tiled2Unity/TextureTintSnap (Legacy)"
             };
 
 
-            fixed4 _Color;
+            UNITY_INSTANCING_CBUFFER_START(MyProperties)
+                UNITY_DEFINE_INSTANCED_PROP(float4, _Color)
+            UNITY_INSTANCING_CBUFFER_END
 
             v2f vert(appdata_t IN)
             {
+                UNITY_SETUP_INSTANCE_ID(IN);
                 v2f OUT;
                 OUT.vertex = UnityObjectToClipPos(IN.vertex);
                 OUT.texcoord = IN.texcoord;
-                OUT.color = IN.color * _Color;
+                OUT.color = IN.color * UNITY_ACCESS_INSTANCED_PROP(_Color);
                 #ifdef PIXELSNAP_ON
                 OUT.vertex = UnityPixelSnap (OUT.vertex);
                 #endif
@@ -79,7 +80,7 @@ Shader "Tiled2Unity/TextureTintSnap (Legacy)"
                     _AlphaColorKey.g == texcol.g &&
                     _AlphaColorKey.b == texcol.b)
                 {
-                    texcol.a = 0;
+                    discard;
                 }
                 else
                 {
