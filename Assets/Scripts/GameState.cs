@@ -21,8 +21,6 @@ public class GameState : Singleton<GameState>
 	public static ActionMap jumpAction = new ActionMap(KeyCode.W, Button.FaceRight);
 	public static ActionMap mainUseAction = new ActionMap(KeyCode.J, Button.FaceLeft);
 	public static ActionMap offUseAction = new ActionMap(KeyCode.K, Button.FaceTop);
-	public static ActionMap mainAbilityModeAction = new ActionMap(KeyCode.LeftShift, Button.LeftShoulder);
-	public static ActionMap offAbilityModeAction = new ActionMap(KeyCode.LeftAlt, Button.RightShoulder);
 	public static ActionMap shortcut1UseAction = new ActionMap(KeyCode.Alpha1, Button.RightStickUp);
 	public static ActionMap shortcut2UseAction = new ActionMap(KeyCode.Alpha2, Button.RightStickRight);
 	public static ActionMap shortcut3UseAction = new ActionMap(KeyCode.Alpha3, Button.RightStickDown);
@@ -89,7 +87,8 @@ public class GameState : Singleton<GameState>
 	{
 		get
 		{
-			return instance._isMenuConsumingInput && (Time.time - instance.consumeInputTime >= Time.fixedDeltaTime);
+			if (instance._isMenuConsumingInput) return true;
+			else return Time.time - instance.consumeInputTime < Time.deltaTime;
 		}
 
 		set

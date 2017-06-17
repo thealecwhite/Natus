@@ -71,9 +71,9 @@ public class InGameMenu : Menu
 		}
 		else interactText.gameObject.SetActive(false);
 
-		if (GameState.isMenuConsumingInput)
+		if (GameState.interactAction.GetDown() || GameState.pauseAction.GetDown())
 		{
-			if (GameState.interactAction.GetDown() || GameState.pauseAction.GetDown())
+			if (GameState.isMenuConsumingInput)
 			{
 				if (itemGetWindow.gameObject.activeSelf)
 				{
@@ -104,7 +104,7 @@ public class InGameMenu : Menu
 
 			GameObject temp = Instantiate(itemGetPrefab, itemGetWindow, false);
 			temp.GetComponent<Text>().text = items[i].name + (amount > 1 ? " x" + amount.ToString() : string.Empty);
-			
+
 			previousItems.Add(items[i]);
 		}
 

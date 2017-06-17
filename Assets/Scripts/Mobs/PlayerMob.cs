@@ -166,11 +166,12 @@ public class PlayerMob : Mob<PlayerMobAnims>
 
 		// INTERACT
 
-		if (GameState.interactAction.GetDown() && !GameState.isMenuConsumingInput)
+		if (GameState.interactAction.GetDown())
 		{
-			if (interactor.interactee != null && interactor.interactee.CanInteract(this))
+			if (!GameState.isMenuConsumingInput)
 			{
-				interactor.interactee.OnInteract(this);
+				if (interactor.interactee != null && interactor.interactee.CanInteract(this))
+					interactor.interactee.OnInteract(this);
 			}
 		}
 	}
