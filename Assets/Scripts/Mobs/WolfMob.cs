@@ -66,13 +66,11 @@ public class WolfMob : AIMob<WolfMobAnims, MobStates>
 		float direction = Mathf.Sign((GameState.player.transform.position - transform.position).x);
 
 		transform.localScale = new Vector3(direction, 1f, 1f);
-		ignoreMoveInput = true;
 
 		yield return new WaitForSeconds(0.5f);
 
 		if (isDead || !target)
 		{
-			ignoreMoveInput = false;
 			stateMachine.ChangeState(MobStates.Chase);
 			yield break;
 		}
@@ -82,11 +80,10 @@ public class WolfMob : AIMob<WolfMobAnims, MobStates>
 			attackTrigger.enabled = true;
 			velocity = new Vector2(direction * 8f, 3f);
 
-			yield return new WaitForSeconds(1f);
+			yield return new WaitForSeconds(0.5f);
 		}
 
 		attackTrigger.enabled = false;
-		ignoreMoveInput = false;
 		stateMachine.ChangeState(MobStates.Chase);
 	}
 

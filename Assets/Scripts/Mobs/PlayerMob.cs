@@ -16,15 +16,17 @@ public class PlayerMob : Mob<PlayerMobAnims>
 	public Interactor interactor { get; private set; }
 
 	public float maxAP = 100f;
-	public Collider2DCallback meleeDamage;
+	public BoxCollider2D meleeDamage;
 	public float currentAP { get; protected set; }
 	public bool isAPRecharging { get; private set; }
 
-	private WeaponItem mainWeaponObject, offWeaponObject;
-	private Item itemInUse;
 	[System.NonSerialized]
 	public bool hasShieldUp;
 	private bool hasSecondChance = true;
+	private WeaponItem mainWeaponObject, offWeaponObject;
+	private Item itemInUse;
+	private MeleeWeaponItem meleeWeaponObject;
+	private Collider2D[] meleeDamageResults = new Collider2D[8];
 
 	protected override void Start()
 	{
@@ -32,8 +34,6 @@ public class PlayerMob : Mob<PlayerMobAnims>
 
 		nodes = GetComponent<SpriteAnimNodes>();
 		interactor = GetComponentInChildren<Interactor>();
-
-		meleeDamage.trigger2D.enabled = false;
 	}
 
 	protected override void Update()
@@ -227,7 +227,6 @@ public class PlayerMob : Mob<PlayerMobAnims>
 	protected override void OnLand()
 	{
 		ignoreMoveInput = true;
-		AnimDisableMeleeDamage();
 		animator.Play(anims.land);
 	}
 
@@ -270,10 +269,9 @@ public class PlayerMob : Mob<PlayerMobAnims>
 
 	public void PrepareMeleeDamage(MeleeWeaponItem item)
 	{
-		((BoxCollider2D)meleeDamage.trigger2D).size = new Vector2(item.range, 1f);
-		((BoxCollider2D)meleeDamage.trigger2D).offset = new Vector2(item.range / 2f, -0.1f);
-		meleeDamage.trigger2D.enabled = false;
-		meleeDamage.onTriggerEnter2D += item.DoMeleeDamage;
+		meleeDamage.size = new Vector2(item.range, 1f);
+		meleeDamage.offset = new Vector2(item.range / 2f, -0.1f);
+		meleeWeaponObject = item;
 	}
 
 	#region Animation
@@ -295,15 +293,12 @@ public class PlayerMob : Mob<PlayerMobAnims>
 		Instantiate((GameObject)effect, nodes.GetPosition(2) + (Vector3.right * velocity.x * 0.1f), Quaternion.identity).transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
 	}
 
-	private void AnimEnableMeleeDamage()
+	private void AnimDoMeleeDamage()
 	{
-		meleeDamage.trigger2D.enabled = true;
-	}
+		Physics2D.OverlapCollider(meleeDamage, new ContactFilter2D() { layerMask = ~LayerMask.GetMask("Player"), useLayerMask = true, useTriggers = false }, meleeDamageResults);
 
-	private void AnimDisableMeleeDamage()
-	{
-		meleeDamage.trigger2D.enabled = false;
-		meleeDamage.ClearOnTriggerEnter2D();
+		if (meleeWeaponObject)
+			meleeWeaponObject.DoDamage(meleeDamageResults);
 	}
 
 	#endregion

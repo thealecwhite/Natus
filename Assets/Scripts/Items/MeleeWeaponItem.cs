@@ -17,14 +17,20 @@ public class MeleeWeaponItem : WeaponItem
 		mob.animator.Play(Random.Range(0, 2) == 0 ? mob.anims.swingDown : mob.anims.swingUp, speed);
 	}
 
-	public void DoMeleeDamage(Collider2D collision)
+	public void DoDamage(Collider2D[] hits)
 	{
-		if (collision.isTrigger)
-			return;
+		for (int i = 0; i < hits.Length; i++)
+		{
+			if (!hits[i])
+				continue;
 
-		IDamageable damageable = collision.GetComponent<IDamageable>();
+			IDamageable damageable = hits[i].GetComponent<IDamageable>();
 
-		if (damageable != null)
-			((MonoBehaviour)damageable).StartCoroutine(damageable.OnDamage(transform.parent.gameObject, gameObject, damage, knockback));
+			if (damageable != null)
+			{
+				((MonoBehaviour)damageable).StartCoroutine(damageable.OnDamage(transform.parent.gameObject, gameObject, damage, knockback));
+				print(transform.parent.name + " hit " + hits[i].name);
+			}
+		}
 	}
 }

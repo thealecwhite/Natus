@@ -367,20 +367,6 @@ AnimationClip:
   m_GenerateMotionCurves: 0
   m_Events:
   - time: 0.25
-    functionName: AnimEnableMeleeDamage
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 1
-  - time: 0.33333334
-    functionName: AnimAddHorizontalForce
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 3
-    intParameter: 0
-    messageOptions: 1
-  - time: 0.33333334
     functionName: AnimPlayAudioClip
     data: 
     objectReferenceParameter: {fileID: 8300000, guid: 0103b91ab62543748b162363d46ec5d9,
@@ -388,16 +374,23 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 1
-  - time: 0.41666666
-    functionName: AnimDisableMeleeDamage
+  - time: 0.25
+    functionName: AnimDoMeleeDamage
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 1
+  - time: 0.25
+    functionName: AnimAddHorizontalForce
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 3
+    intParameter: 0
+    messageOptions: 1
   - time: 0.5833333
-    functionName: _Anim
-    data: AnimEnableMoveInput
+    functionName: AnimEnableMoveInput
+    data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
