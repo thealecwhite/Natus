@@ -180,7 +180,13 @@ public class Mob<TAnims> : MonoBehaviour, IDamageable where TAnims : MobAnims
 
 	private void AnimPlayAudioClip(Object clip)
 	{
-		AudioSource.PlayClipAtPoint((AudioClip)clip, new Vector3(transform.position.x, transform.position.y, -10f));
+		AudioSource audioSource = new GameObject("Audio Source (" + clip.name + ")").AddComponent<AudioSource>();
+
+		audioSource.transform.SetParent(transform, false);
+		audioSource.clip = (AudioClip)clip;
+		audioSource.Play();
+
+		Destroy(audioSource.gameObject, audioSource.clip.length);
 	}
 
 	#endregion
